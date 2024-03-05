@@ -32,7 +32,7 @@
                     <td>{{ $item->harga_jual }}</td>
                     <td>{{ $item->stok }}</td>
                     <td>
-                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#titipan" data-mode="edit" data-nama_produk="{{ $item->nama_produk }}" data-nama_supplier="{{ $item->nama_supplier }}" data-harga_beli="{{ $item->harga_beli }}" data-harga_jual="{{ $item->harga_jual }}" data-stok="{{ $item->stok }}" data-keterangan="{{ $item->keterangan }}">
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#titipan" data-mode="edit" data-id="{{ $item->id }}" data-nama_produk="{{ $item->nama_produk }}" data-nama_supplier="{{ $item->nama_supplier }}" data-harga_beli="{{ $item->harga_beli }}" data-harga_jual="{{ $item->harga_jual }}" data-stok="{{ $item->stok }}" data-keterangan="{{ $item->keterangan }}">
                             <i class='fas fa-pen'></i>
                         </button>
                         <form action="{{ route('titipan.destroy', $item->id) }}" method="POST"
