@@ -10,20 +10,18 @@ class JenisSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $jenis = [
             [
-                'nama_jenis' => 'Makanan'
+                'nama_jenis' => 'Appetizer'
             ],
             [
-                'nama_jenis' => 'Minuman'
+                'nama_jenis' => 'Main Course'
             ],
             [
-                'nama_jenis' => 'Camilan'
+                'nama_jenis' => 'Dessert'
             ]
         ];
         foreach ($jenis as $key => $value) {

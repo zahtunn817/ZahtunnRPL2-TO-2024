@@ -20,9 +20,10 @@ class KategoriController extends Controller
     public function index()
     {
         try {
-            $data['kategori'] = Kategori::get();
-            return view('pages.kategori.index', [
+            $data['kategori'] = Kategori::orderBy('created_at', 'DESC')->get();
+            return view('kategori.index', [
                 'page' => 'Kategori',
+                'section' => 'Kelola data',
             ])->with($data);
         } catch (QueryException | Exception | PDOException $error) {
             $this->failResponse($error->getCode());

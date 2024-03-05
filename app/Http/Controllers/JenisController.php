@@ -20,9 +20,10 @@ class JenisController extends Controller
     public function index()
     {
         try {
-            $data['jenis'] = Jenis::get();
-            return view('pages.Jenis.index', [
-                'page' => 'Jenis',
+            $data['jenis'] = Jenis::orderBy('created_at', 'DESC')->get();
+            return view('Jenis.index', [
+                'page' => 'jenis',
+                'section' => 'Kelola data',
             ])->with($data);
         } catch (QueryException | Exception | PDOException $error) {
             $this->failResponse($error->getCode());

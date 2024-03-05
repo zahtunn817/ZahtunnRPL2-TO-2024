@@ -1,12 +1,11 @@
-<!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/') }}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-squint"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Kasir Bahagia</div>
+        <div class="sidebar-brand-text mx-3">Cafe <sup>SE2</sup></div>
     </a>
 
     <!-- Divider -->
@@ -14,100 +13,129 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{{ url('dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+            <span><b>Dashboard</b></span></a>
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-
     <!-- Heading -->
     <div class="sidebar-heading">
-        Kasir
+        Pemesanan & Transaksi
     </div>
 
-    <!-- Nav Item - Transaksi -->
+    <!-- Nav Item - Pemesanan meja -->
     <li class="nav-item">
         <a class="nav-link" href="{{ url('pemesanan') }}">
-            <i class="fas fa-fw fa-sticky-note"></i>
-            <span>Pemesanan</span></a>
+            <i class="fas fa-fw fa-clipboard-check"></i>
+            <span><b>Pemesanan meja</b></span></a>
     </li>
+    <!-- Nav Item - Transaksi -->
     <li class="nav-item">
         <a class="nav-link" href="{{ url('transaksi') }}">
             <i class="fas fa-fw fa-credit-card"></i>
-            <span>Transaksi</span></a>
-    </li>
-
-    <!-- Nav Item - Riwayat Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-            aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-book"></i>
-            <span>Riwayat</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Riwayat terekam:</h6>
-                <a class="collapse-item" href="{{ url('reservasi') }}">Pemesanan</a>
-                <a class="collapse-item" href="{{ url('pembayaran') }}">Transaksi</a>
-            </div>
-        </div>
+            <span><b>Transaksi</b></span></a>
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-
     <!-- Heading -->
     <div class="sidebar-heading">
-        Data
+        Stok
     </div>
 
     <!-- Nav Item - Stok -->
     <li class="nav-item">
         <a class="nav-link" href="{{ url('stok') }}">
-            <i class="fas fa-fw fa-box"></i>
-            <span>Stok</span></a>
+            <i class="fas fa-fw fa-box-open"></i>
+            <span><b>Stok</b></span></a>
     </li>
 
-    <!-- Nav Item - Menu Collapse Menu -->
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Kelola Data
+    </div>
+
+    <!-- Nav Item - Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePage" aria-expanded="true"
-            aria-controls="collapsePage">
-            <i class="fas fa-fw fa-utensils"></i>
-            <span>Menu</span>
+        <a class="nav-link" href="{{ url('menu') }}">
+            <i class="fas fa-fw fa-clipboard-list"></i>
+            <span><b>Menu</b></span></a>
+    </li>
+    <!-- Nav Item - Labels Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
+            aria-expanded="true" aria-controls="collapseOne">
+            <i class="fas fa-fw fa-tag"></i>
+            <span><b>Labels</b></span>
         </a>
-        <div id="collapsePage" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Tags:</h6>
-                <a class="collapse-item" href="{{ url('kategori') }}">Kategori</a>
                 <a class="collapse-item" href="{{ url('jenis') }}">Jenis</a>
-                <div class="collapse-divider"></div>
-                <h6 class="collapse-header">Menu:</h6>
-                <a class="collapse-item" href="{{ url('menu') }}">Menu</a>
+                <a class="collapse-item" href="{{ url('kategori') }}">Kategori</a>
             </div>
         </div>
     </li>
-
-    <!-- Nav Item - meja -->
+    <!-- Nav Item - Meja -->
     <li class="nav-item">
         <a class="nav-link" href="{{ url('meja') }}">
-            <i class="fas fa-fw fa-chair"></i>
-            <span>Meja</span></a>
+            <i class="fas fa-fw fa-utensils"></i>
+            <span><b>Meja</b></span></a>
     </li>
-
-    <!-- Nav Item - pelanggan -->
+    <!-- Nav Item - Pelanggan -->
     <li class="nav-item">
         <a class="nav-link" href="{{ url('pelanggan') }}">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Pelanggan</span></a>
+            <i class="fas fa-fw fa-users"></i>
+            <span><b>Pelanggan</b></span></a>
+    </li>
+    <!-- Nav Item - User -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('user') }}">
+            <i class="fas fa-fw fa-user-tie"></i>
+            <span><b>User</b></span></a>
     </li>
 
-    <!-- Nav Item - petugas -->
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Laporan
+    </div>
+
+    <!-- Nav Item - Kelola laporan Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ url('petugas') }}">
-            <i class="fas fa-fw fa-user-tie"></i>
-            <span>Petugas</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-database"></i>
+            <span><b>Kelola laporan</b></span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ url('dataPemesanan') }}">Pemesanan</a>
+                <a class="collapse-item" href="{{ url('dataTransaksi') }}">Transaksi</a>
+            </div>
+        </div>
+    </li>
+    <!-- Nav Item - Laporan pemesanan -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('laporanPemesanan') }}">
+            <i class="fas fa-fw fa-clipboard-check"></i>
+            <span><b>Laporan pemesanan</b></span></a>
+    </li>
+    <!-- Nav Item - Laporan transaksi -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('laporanTransaksi') }}">
+            <i class="fas fa-fw fa-credit-card"></i>
+            <span><b>Laporan transaksi</b></span></a>
+    </li>
+    <!-- Nav Item - Riwayat -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('riwayat') }}">
+            <i class="fas fa-fw fa-clock"></i>
+            <span><b>Riwayat</b></span></a>
     </li>
 
     <!-- Divider -->
@@ -119,4 +147,3 @@
     </div>
 
 </ul>
-<!-- End of Sidebar -->

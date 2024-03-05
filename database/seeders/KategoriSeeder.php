@@ -10,20 +10,18 @@ class KategoriSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $kategori = [
             [
-                'nama_kategori' => 'Appetizer'
+                'nama_kategori' => 'Makanan'
             ],
             [
-                'nama_kategori' => 'Main course'
+                'nama_kategori' => 'Minuman'
             ],
             [
-                'nama_kategori' => 'Dessert'
+                'nama_kategori' => 'Camilan'
             ]
         ];
         foreach ($kategori as $key => $value) {

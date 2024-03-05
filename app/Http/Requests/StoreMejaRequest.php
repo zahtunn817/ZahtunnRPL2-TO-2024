@@ -2,16 +2,16 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreMejaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -19,20 +19,19 @@ class StoreMejaRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, mixed>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'nomor_meja' => 'required',
-            'nomor_meja' => 'unique',
-            'kapasitas' => 'required'
+            'nomor_meja' => 'required|max:9',
+            'kapasitas' => 'required',
         ];
     }
     public function messages()
     {
-        return ['nomor_meja.required' => 'Anda belum memasukkan NOMOR MEJA!'];
-        return ['nomor_meja.unique' => 'NOMOR MEJA sudah ada!'];
-        return ['kapasitas.required' => 'Anda belum memasukkan KAPASITAS!'];
+        return [
+            'nomor_meja.required' => 'Anda belum memasukkan NOMOR MEJA!', 'kapasitas.required' => 'Anda belum memasukkan KAPASITAS!'
+        ];
     }
 }

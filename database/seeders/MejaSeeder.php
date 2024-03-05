@@ -10,27 +10,44 @@ class MejaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $meja = [
             [
-                'nomor_meja' => 'Take away/Drivethru',
-                'kapasitas' => '0'
+                'nomor_meja' => 'Take away',
+                'kapasitas' => '0',
+                'status' => '0'
+            ],
+            [
+                'nomor_meja' => 'Drivethru',
+                'kapasitas' => '0',
+                'status' => '0'
             ],
             [
                 'nomor_meja' => 'M-01',
-                'kapasitas' => '4'
+                'kapasitas' => '2',
+                'status' => '1'
             ],
             [
                 'nomor_meja' => 'M-02',
-                'kapasitas' => '4'
+                'kapasitas' => '2',
+                'status' => '0'
             ],
             [
                 'nomor_meja' => 'M-03',
-                'kapasitas' => '4'
+                'kapasitas' => '4',
+                'status' => '1'
+            ],
+            [
+                'nomor_meja' => 'M-04',
+                'kapasitas' => '4',
+                'status' => '0'
+            ],
+            [
+                'nomor_meja' => 'M-05',
+                'kapasitas' => '6',
+                'status' => '1'
             ]
         ];
         foreach ($meja as $key => $value) {

@@ -20,9 +20,10 @@ class MejaController extends Controller
     public function index()
     {
         try {
-            $data['meja'] = Meja::get();
-            return view('pages.meja.index', [
-                'page' => 'Meja',
+            $data['meja'] = Meja::orderBy('created_at', 'DESC')->get();
+            return view('Meja.index', [
+                'page' => 'meja',
+                'section' => 'Kelola data',
             ])->with($data);
         } catch (QueryException | Exception | PDOException $error) {
             $this->failResponse($error->getCode());

@@ -2,14 +2,8 @@
 @push('style')
 @endpush
 @section('content')
-    <!-- Begin Page Content -->
-    <div class="container-fluid">
-
-        <!-- Page Heading -->
-        <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
-
-    </div>
-    <!-- /.container-fluid -->
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Wellcome</h1>
 @endsection
 @push('script')
 @endpush
