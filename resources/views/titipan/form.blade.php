@@ -60,7 +60,7 @@
                 </button>
             </div>
             <div class="modal-body text-center">
-                <a href="#" class="btn btn-danger btn-icon-split mr-3">
+                <a href="titipan/cetak_pdf" class="btn btn-danger btn-icon-split mr-3">
                     <span class="icon text-white-50">
                         <i class="fas fa-file-pdf"></i>
                     </span>

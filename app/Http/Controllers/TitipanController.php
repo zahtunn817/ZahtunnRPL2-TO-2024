@@ -9,11 +9,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\TitipanExport;
-use App\Exports\TitipanImport;
-use App\Imports\TitipanImport as ImportsTitipanImport;
+use App\Imports\TitipanImport;
 use Exception;
 use PDOException;
-use PhpParser\Node\Expr;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TitipanController extends Controller
 {
@@ -95,7 +94,17 @@ class TitipanController extends Controller
 
     public function importData()
     {
-        Excel::import(new ImportsTitipanImport, request()->file('import'));
+        Excel::import(new TitipanImport, request()->file('import'));
         return redirect(request()->segment(1))->with('success', 'Import data titipan produk berhasil!');
+    }
+
+    public function cetak_pdf()
+    {
+        $data = Titipan::all();
+
+        // share data to view
+        view()->share('titipan', $data);
+        $pdf = PDF::loadView('pdf_view', $data);
+        return $pdf->download('data titipan.pdf');
     }
 }
