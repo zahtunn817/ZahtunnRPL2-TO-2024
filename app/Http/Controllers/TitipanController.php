@@ -12,9 +12,7 @@ use PDOException;
 
 class TitipanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         try {
@@ -28,51 +26,26 @@ class TitipanController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreTitipanRequest $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Titipan $titipan)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Titipan $titipan)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateTitipanRequest $request, Titipan $titipan)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Titipan $titipan)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $titipan->delete();
+            DB::commit();
+            return redirect('titipan')->with('success', 'Produk titipan berhasil dihapus!');
+        } catch (QueryException | Exception | PDOException $error) {
+            DB::rollBack();
+            return "Terjadi kesalahan :(" . $error->getMessage();
+        }
     }
 }

@@ -33,5 +33,26 @@
 @endsection
 @push('script')
     <script>
+        $('.alert-success').fadeTo(2000, 500).slideUp(500, function() {
+            $('.alert-success').slideUp(500)
+        });
+
+        $('.delete-data').on('click', function(e) {
+            e.preventDefault()
+            let nama_produk = $(this).closest('tr').find('td:eq(1)').text()
+            Swal.fire({
+                title: `Apakah data <span style="color:red"><b>${nama_produk}</b></span> akan dihapus?`,
+                text: 'Data tidak bisa dikembalikan!',
+                icon: 'error',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: 'd33',
+                confirmButtonText: 'Ya, hapus data ini!'
+            }).then((result) => {
+                if (result.isConfirmed)
+                    $(e.target).closest('form').submit()
+                else swal.close()
+            })
+        })
     </script>
 @endpush

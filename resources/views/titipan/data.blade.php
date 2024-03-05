@@ -35,11 +35,11 @@
                         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#jenis">
                             <i class='fas fa-pen'></i>
                         </button>
-                        <form action="{{ route('jenis.destroy', $item->id) }}" method="POST"
+                        <form action="{{ route('titipan.destroy', $item->id) }}" method="POST"
                             class="d-inline form-delete" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger delete-data">
+                            <button type="submit" class="btn btn-danger delete-data" data-nama_produk="{{ $item->nama_produk }}">
                                 <i class='fas fa-trash'></i>
                             </button>
                         </form>
