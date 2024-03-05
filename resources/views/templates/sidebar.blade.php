@@ -65,6 +65,12 @@
             <i class="fas fa-fw fa-clipboard-list"></i>
             <span><b>Menu</b></span></a>
     </li>
+    <!-- Nav Item - Menu -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('titipan') }}">
+            <i class="fas fa-fw fa-box"></i>
+            <span><b>Produk Titipan</b></span></a>
+    </li>
     <!-- Nav Item - Labels Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
