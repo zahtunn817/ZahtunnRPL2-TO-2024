@@ -18,7 +18,7 @@ return new class extends Migration
             $table->double('harga_beli');
             $table->double('harga_jual');
             $table->integer('stok');
-            $table->text('keterangan');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

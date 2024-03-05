@@ -54,5 +54,39 @@
                 else swal.close()
             })
         })
+
+        $('#titipan').on('show.bs.modal', function(e) {
+            const btn = $(e.relatedTarget)
+            const mode = btn.data('mode')
+            const nama_produk = btn.data('nama_produk')
+            const nama_supplier = btn.data('nama_supplier')
+            const harga_beli = btn.data('harga_beli')
+            const harga_jual = btn.data('harga_jual')
+            const stok = btn.data('stok')
+            const keterangan = btn.data('keterangan')
+            const id = btn.data('id')
+            const modal = $(this)
+            if (mode === 'edit') {
+                modal.find('.modal-title').text('Edit produk titipan')
+                modal.find('#nama_produk').val(nama_produk)
+                modal.find('#nama_supplier').val(nama_supplier)
+                modal.find('#harga_beli').val(harga_beli)
+                modal.find('#harga_jual').val(harga_jual)
+                modal.find('#stok').val(stok)
+                modal.find('#keterangan').val(keterangan)
+                modal.find('.modal-body form').attr('action', '{{ url("titipan") }}/' + id)
+                modal.find('#method').html('@method("PATCH")')
+            } else {
+                modal.find('.modal-title').text('Input produk titipan')
+                modal.find('#nama_produk').val('')
+                modal.find('#nama_supplier').val('')
+                modal.find('#harga_beli').val('')
+                modal.find('#harga_jual').val('')
+                modal.find('#stok').val('')
+                modal.find('#keterangan').val('')
+                modal.find('.modal-body form').attr('action', '{{ url("titipan") }}')
+                modal.find('#method').html('')
+            }
+        })
     </script>
 @endpush

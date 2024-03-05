@@ -28,10 +28,27 @@ class TitipanController extends Controller
 
     public function store(StoreTitipanRequest $request)
     {
-        //
+
+        $hargaJual = $request->input('harga_jual');
+
+        try {
+            DB::beginTransaction();
+            $data['nama_produk'] = $request->nama_produk;
+            $data['nama_supplier'] = $request->nama_supplier;
+            $data['harga_beli'] = $request->harga_beli;
+            $data['stok'] = $request->stok;
+            $data['keterangan'] = $request->keterangan;
+            $data['harga_jual'] = $hargaJual;
+            Titipan::create($data);
+            DB::commit();
+            return redirect('titipan')->with('success', 'Produk titipan berhasil ditambahkan!');
+        } catch (QueryException | Exception | PDOException $error) {
+            DB::rollBack();
+            $this->failResponse($error->getMessage(), $error->getCode());
+        }
     }
 
-    public function update(UpdateTitipanRequest $request, Titipan $titipan)
+    public function update(StoreTitipanRequest $request, Titipan $titipan)
     {
         //
     }
