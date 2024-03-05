@@ -49,6 +49,34 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="titipanExport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Export data titipan produk</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <a href="#" class="btn btn-danger btn-icon-split mr-3">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span class="text">Pdf</span>
+                </a>
+                <a href="{{ route('export-titipan') }}" class="btn btn-success btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-file-excel"></i>
+                    </span>
+                    <span class="text">Excel</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
 @push('script')
 <script>
      $(document).ready(function(){

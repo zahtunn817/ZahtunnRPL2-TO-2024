@@ -17,13 +17,13 @@
             </a>
             <a href="#" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#titipanExport">
                 <span class="icon text-white-50">
-                    <i class="fas fa-upload"></i>
+                    <i class="fas fa-file-export"></i>
                 </span>
                 <span class="text">Export</span>
             </a>
             <a href="#" class="btn btn-warning btn-icon-split mb-3" data-toggle="modal" data-target="#titipanImport">
                 <span class="icon text-white-50">
-                    <i class="fas fa-download"></i>
+                    <i class="fas fa-file-import"></i>
                 </span>
                 <span class="text">Import</span>
             </a>

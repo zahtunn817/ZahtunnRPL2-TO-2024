@@ -7,8 +7,11 @@ use App\Http\Requests\StoreTitipanRequest;
 use App\Http\Requests\UpdateTitipanRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\TitipanExport;
 use Exception;
 use PDOException;
+use PhpParser\Node\Expr;
 
 class TitipanController extends Controller
 {
@@ -80,5 +83,11 @@ class TitipanController extends Controller
             DB::rollBack();
             return "Terjadi kesalahan :(" . $error->getMessage();
         }
+    }
+
+    public function exportData()
+    {
+        $date = date('Y-M-d');
+        return Excel::download(new TitipanExport, $date . '-titipan.xlsx');
     }
 }

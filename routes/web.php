@@ -11,6 +11,7 @@ use App\Http\Controllers\StokController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TransaksiController;
+use App\Models\Titipan;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,10 +32,12 @@ Route::get('about', [PageController::class, 'about']);
 Route::resource('jenis', JenisController::class);
 Route::resource('kategori', KategoriController::class);
 Route::resource('menu', MenuController::class);
-Route::resource('titipan', TitipanController::class);
 Route::resource('meja', MejaController::class);
 Route::resource('stok', StokController::class);
 Route::resource('pelanggan', PelangganController::class);
 Route::resource('user', UserController::class);
 
 Route::resource('transaksi', TransaksiController::class);
+
+Route::resource('titipan', TitipanController::class);
+Route::get('export/titipan', [TitipanController::class, 'exportData'])->name('export-titipan');
