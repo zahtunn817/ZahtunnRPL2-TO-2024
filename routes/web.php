@@ -41,3 +41,4 @@ Route::resource('transaksi', TransaksiController::class);
 
 Route::resource('titipan', TitipanController::class);
 Route::get('export/titipan', [TitipanController::class, 'exportData'])->name('export-titipan');
+Route::post('titipan/import', [TitipanController::class, 'importData'])->name('import-titipan');

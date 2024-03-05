@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\TitipanExport;
+use App\Exports\TitipanImport;
+use App\Imports\TitipanImport as ImportsTitipanImport;
 use Exception;
 use PDOException;
 use PhpParser\Node\Expr;
@@ -89,5 +91,11 @@ class TitipanController extends Controller
     {
         $date = date('Y-M-d');
         return Excel::download(new TitipanExport, $date . '-titipan.xlsx');
+    }
+
+    public function importData()
+    {
+        Excel::import(new ImportsTitipanImport, request()->file('import'));
+        return redirect(request()->segment(1))->with('success', 'Import data titipan produk berhasil!');
     }
 }

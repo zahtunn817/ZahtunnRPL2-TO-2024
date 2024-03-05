@@ -77,6 +77,33 @@
     </div>
 </div>
 
+<div class="modal fade" id="titipanImport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Import titipan produk</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ route('import-titipan') }}" enctype="multipart/form-data">
+                    @csrf 
+                    <div class="form-group">
+                            <label for="import" class="col-sm-4 col-form-label">File excel</label>
+                            <input type="file" name="import" id="import" class="form-control col-sm-8">
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @push('script')
 <script>
      $(document).ready(function(){
