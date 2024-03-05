@@ -8,7 +8,7 @@
         <div class="sidebar-brand-text mx-3">Cafe <sup>SE2</sup></div>
     </a>
 
-    <!-- Divider -->
+    {{-- <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
@@ -16,7 +16,7 @@
         <a class="nav-link" href="{{ url('dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span><b>Dashboard</b></span></a>
-    </li>
+    </li> --}}
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -26,11 +26,11 @@
     </div>
 
     <!-- Nav Item - Pemesanan meja -->
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="{{ url('pemesanan') }}">
             <i class="fas fa-fw fa-clipboard-check"></i>
             <span><b>Pemesanan meja</b></span></a>
-    </li>
+    </li> --}}
     <!-- Nav Item - Transaksi -->
     <li class="nav-item">
         <a class="nav-link" href="{{ url('transaksi') }}">
@@ -120,25 +120,39 @@
         </div>
     </li>
     <!-- Nav Item - Laporan pemesanan -->
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="{{ url('laporanPemesanan') }}">
             <i class="fas fa-fw fa-clipboard-check"></i>
             <span><b>Laporan pemesanan</b></span></a>
-    </li>
+    </li> --}}
     <!-- Nav Item - Laporan transaksi -->
     <li class="nav-item">
         <a class="nav-link" href="{{ url('laporanTransaksi') }}">
             <i class="fas fa-fw fa-credit-card"></i>
             <span><b>Laporan transaksi</b></span></a>
-    </li>
+    {{-- </li>
     <!-- Nav Item - Riwayat -->
     <li class="nav-item">
         <a class="nav-link" href="{{ url('riwayat') }}">
             <i class="fas fa-fw fa-clock"></i>
             <span><b>Riwayat</b></span></a>
-    </li>
+    </li> --}}
 
     <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Cafe SE2
+    </div>
+
+    <!-- Nav Item - About -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('about') }}">
+            <i class="fas fa-fw fa-info"></i>
+            <span><b>Tentang aplikasi</b></span></a>
+    </li>
+
     <hr class="sidebar-divider d-none d-md-block">
 
     <!-- Sidebar Toggler (Sidebar) -->
