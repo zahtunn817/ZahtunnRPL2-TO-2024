@@ -86,6 +86,10 @@ class TitipanController extends Controller
         }
     }
 
+    public function show()
+    {
+    }
+
     public function exportData()
     {
         $date = date('Y-M-d');
@@ -100,11 +104,11 @@ class TitipanController extends Controller
 
     public function cetak_pdf()
     {
-        $data = Titipan::all();
 
-        // share data to view
-        view()->share('titipan', $data);
-        $pdf = PDF::loadView('pdf_view', $data);
-        return $pdf->download('data titipan.pdf');
+
+        $titipan = Titipan::all();
+
+        $pdf = PDF::loadView('titipan.pdf_view', compact('titipan'));
+        return $pdf->download('datatitipan.pdf');
     }
 }

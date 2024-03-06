@@ -36,61 +36,61 @@
 @push('script')
 <script>
     $(function(){
-        const orderedList = []
-        let total = 0;
-        const sum = () =>{
-                return orderedList.reduce((accumulator, object) => {
-                    return accumulator + (object.harga * object.qty);
-                },0)
-            };
-
-            const changeQty = (el, inc) => {
-                //ubah di array
-                const id = $(el).closest('div')[0].dataset.id;
-                const index = orderedList.findIndex(list => list.menu_id == id)
-                orderedList[index].qty += orderedList[index].qty == 1 && inc == -1 ? 0 : inc
-
-                //ubah qty & subtotal
-                const txt_subtotal =$(el).closest('li').find('.subtotal')[0];
-                const txt_qty =$(el).closest('li').find('.qty-item')[0]
-                txt_qty.value = parseInt(txt_qty.value) == 1 && inc == -1 ? 1 : parseInt(txt_qty.value) + inc;
-                txt_subtotal.innerHTML =  orderedList[index].harga * orderedList[index].qty;
+        const orderedList = [];
         
-                //ubah jumlah total
-                $('#total').html(sum())
-            }
+        const sum = () => {
+            return orderedList.reduce((accumulator, object) => {
+                return accumulator + (object.harga * object.qty);
+            }, 0);
+        };
 
-            //events
-        $('.ordered-list').on('click', '.btn-dec', function(){changeQty(this, -1)})
-        $('.ordered-list').on('click', '.btn-inc', function(){changeQty(this, 1)})
+        const changeQty = (el, inc) => {
+            // Mengubah di array
+            const id = $(el).closest('li').data('id');
+            const index = orderedList.findIndex(list => list.id == id);
+            orderedList[index].qty += (orderedList[index].qty == 1 && inc == -1) ? 0 : inc;
+
+            // Mengubah qty & subtotal
+            const listItem = $(el).closest('li');
+            const txt_subtotal = listItem.find('.subtotal');
+            const txt_qty = listItem.find('.qty-item');
+            txt_qty.val(parseInt(txt_qty.val()) == 1 && inc == -1 ? 1 : parseInt(txt_qty.val()) + inc);
+            txt_subtotal.text(orderedList[index].harga * orderedList[index].qty);
+        
+            // Mengubah jumlah total
+            $('#total').html(sum());
+        };
+
+        // Events
+        $('.ordered-list').on('click', '.btn-dec', function(){changeQty(this, -1);});
+        $('.ordered-list').on('click', '.btn-inc', function(){changeQty(this, 1);});
         $('.ordered-list').on('click', '.remove-item', function(){
             const item = $(this).closest('li')[0];
-            let index = orderedList.findIndex(list => list.id == parseInt(item.dataset.id))
-            orderedList.splice(index,1)
+            const id = $(this).closest('li').data('id');
+            const index = orderedList.findIndex(list => list.id == id);
+            orderedList.splice(index, 1);
             $(item).remove();
-            $('#total').html(sum())
-        })
-        
-        
-    
+            $('#total').html(sum());
+        });
 
         $(".menu-item li").click(function(){
             const menu_clicked = $(this).text();
-            const data = $(this)[0].dataset;
+            const data = $(this).data();
             const harga = parseFloat(data.harga);
-            const qty = data.qty;
-            const id = data.id;
+            const qty = parseInt(data.qty);
+            const id = parseInt(data.id);
 
             if(orderedList.length !== 0 && orderedList.some(list => list.id === id)){
-                let index = orderedList.findIndex(list => list.id === id)
-                orderedList[index].qty += 1
-            }else{
-                let dataN = {'id':id, 'menu':menu_clicked, 'harga':harga,'qty':1}
+                const index = orderedList.findIndex(list => list.id === id);
+                orderedList[index].qty += 1;
+            } else {
+                const dataN = {'id': id, 'menu': menu_clicked, 'harga': harga, 'qty': 1};
                 orderedList.push(dataN);
             }
-            $('.ordered-list li').remove()
-            orderedList.forEach(function(data) {
-            let listOrder = `<li class="row" style="list-style-type:none" data-id="${data.id}">
+
+            $('.ordered-list li').remove();
+            orderedList.forEach(function(data){
+                let listOrder = `<li class="row" style="list-style-type:none" data-id="${data.id}">
                     <hr>
                     <div class="mr-3 col-sm-6">
                         <h5 class="font-weight-bold mr-3">${data.menu}</h5>
@@ -102,12 +102,12 @@
                         <button style="height:38px" class="btn-inc btn btn-sm btn-primary"><i class='fas fa-plus'></i></button>
                         <button style="height:38px" class="btn btn-sm btn-danger remove-item ml-3"><i class='fas fa-trash'></i></button> 
                     </div>
-                </li>`
-            $('.ordered-list').append(listOrder)
-})
-
-            $('#total').html(sum())
-        });        
+                </li>`;
+                $('.ordered-list').append(listOrder);
+            });
+            $('#total').html(sum());
+        });
     });
 </script>
+
 @endpush
