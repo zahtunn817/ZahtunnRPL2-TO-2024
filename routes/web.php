@@ -31,22 +31,30 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('about', [PageController::class, 'about']);
-Route::resource('jenis', JenisController::class);
-Route::resource('kategori', KategoriController::class);
-Route::resource('menu', MenuController::class);
-Route::resource('meja', MejaController::class);
-Route::resource('stok', StokController::class);
-Route::resource('pelanggan', PelangganController::class);
-Route::resource('user', UserController::class);
-
-Route::resource('transaksi', TransaksiController::class);
-
-Route::resource('titipan', TitipanController::class);
-Route::get('export/titipan', [TitipanController::class, 'exportData'])->name('export-titipan');
-Route::post('titipan/import', [TitipanController::class, 'importData'])->name('import-titipan');
-Route::get('titipan/cetak_pdf', [TitipanController::class, 'cetak_pdf'])->name('pdf-titipan');
-
 Route::get('/login', [UserController::class, 'log'])->name('login');
 Route::post('/login/cek', [UserController::class, 'cekLogin'])->name('cekLogin');
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+
+Route::get('about', [PageController::class, 'about']);
+
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::resource('transaksi', TransaksiController::class);
+    Route::group(['middleware' => ['cekUserLogin:kasir']], function () {
+    });
+
+    Route::group(['middleware' => ['cekUserLogin:admin']], function () {
+        Route::resource('jenis', JenisController::class);
+        Route::resource('kategori', KategoriController::class);
+        Route::resource('menu', MenuController::class);
+        Route::resource('meja', MejaController::class);
+        Route::resource('stok', StokController::class);
+        Route::resource('pelanggan', PelangganController::class);
+        Route::resource('user', UserController::class);
+
+        Route::resource('titipan', TitipanController::class);
+        Route::get('export/titipan', [TitipanController::class, 'exportData'])->name('export-titipan');
+        Route::post('titipan/import', [TitipanController::class, 'importData'])->name('import-titipan');
+        Route::get('titipan/cetak_pdf', [TitipanController::class, 'cetak_pdf'])->name('pdf-titipan');
+    });
+});

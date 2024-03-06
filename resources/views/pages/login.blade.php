@@ -42,6 +42,7 @@
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
                                     <form class="user" action="{{ route('cekLogin') }}" method="post" novalidate>
+                                        @csrf
                                         <div class="form-group">
                                             <input type="email" class="form-control
                                             @error('email')
@@ -66,7 +67,7 @@
                                             Login
                                         </button>
                                         @error('notfound')
-                                        <div class="row mb-2">
+                                        <div class="row mt-2">
                                             <div class="text-center col-12 text-danger">
                                                 {{ $message }}
                                             </div>

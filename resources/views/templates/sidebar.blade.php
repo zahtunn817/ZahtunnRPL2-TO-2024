@@ -8,15 +8,16 @@
         <div class="sidebar-brand-text mx-3">Cafe <sup>SE2</sup></div>
     </a>
 
-    {{-- <!-- Divider -->
+    <!-- Divider -->
     <hr class="sidebar-divider my-0">
+    @auth
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ url('dashboard') }}">
+        <a class="nav-link" href="{{ url('/') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span><b>Dashboard</b></span></a>
-    </li> --}}
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -144,6 +145,7 @@
             <span><b>Riwayat</b></span></a>
     </li> --}}
 
+    @else
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
@@ -151,6 +153,7 @@
     <div class="sidebar-heading">
         Cafe SE2
     </div>
+    @endauth
 
     <!-- Nav Item - About -->
     <li class="nav-item">
@@ -158,7 +161,6 @@
             <i class="fas fa-fw fa-info"></i>
             <span><b>Tentang aplikasi</b></span></a>
     </li>
-
     <hr class="sidebar-divider d-none d-md-block">
 
     <!-- Sidebar Toggler (Sidebar) -->
