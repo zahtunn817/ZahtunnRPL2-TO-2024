@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthRequest;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Exception;
 use PDOException;
@@ -16,6 +19,66 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function cekLogin(AuthRequest $request)
+    {
+        $credentials = $request->only('email', 'password');
+        $request->session()->regenerate();
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            switch ($user->roles) {
+                case 'kasir':
+                    return redirect()->intended('/transaksi');
+                    break;
+                case 'admin':
+                    return redirect()->intended('/menu');
+                    break;
+                case 'owner':
+                    return redirect()->intended('/about');
+                    break;
+                case 'masterkey':
+                    return redirect()->intended('/titipan');
+                    break;
+            }
+            return redirect()->intended('/');
+        }
+        return back()->withErrors([
+            'notfound' => 'Email or password is wrong'
+        ])->onlyInput('email');
+    }
+
+    public function log()
+    {
+
+        if ($user = Auth::user()) {
+            switch ($user->level) {
+                case 'kasir':
+                    return redirect()->intended('/transaksi');
+                    break;
+                case 'admin':
+                    return redirect()->intended('/menu');
+                    break;
+                case 'owner':
+                    return redirect()->intended('/about');
+                    break;
+                case 'masterkey':
+                    return redirect()->intended('/titipan');
+                    break;
+            }
+        }
+        return view('pages.login', [
+            'page' => 'login',
+            'section' => 'Login user'
+        ]);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+    }
+
     public function index()
     {
         try {
@@ -47,7 +110,7 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         try {
-            
+
             DB::beginTransaction();
             User::create($request->all());
             DB::commit();

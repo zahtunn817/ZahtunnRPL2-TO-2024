@@ -10,7 +10,7 @@
             <div class="modal-body">Pilih tombol "Logout" untuk mengakhiri <i>shift</i>-mu.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <a class="btn btn-primary" href="{{ route('logout') }}">Logout</a>
             </div>
         </div>
     </div>

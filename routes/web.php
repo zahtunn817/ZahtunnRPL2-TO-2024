@@ -25,7 +25,10 @@ use App\Models\Titipan;
 */
 
 Route::get('/', function () {
-    return view('pages.index');
+    return view('pages.index', [
+        'page' => 'page',
+        'section' => 'Halaman kosong'
+    ]);
 });
 
 Route::get('about', [PageController::class, 'about']);
@@ -43,3 +46,7 @@ Route::resource('titipan', TitipanController::class);
 Route::get('export/titipan', [TitipanController::class, 'exportData'])->name('export-titipan');
 Route::post('titipan/import', [TitipanController::class, 'importData'])->name('import-titipan');
 Route::get('titipan/cetak_pdf', [TitipanController::class, 'cetak_pdf'])->name('pdf-titipan');
+
+Route::get('/login', [UserController::class, 'log'])->name('login');
+Route::post('/login/cek', [UserController::class, 'cekLogin'])->name('cekLogin');
+Route::get('/logout', [UserController::class, 'logout'])->name('logout');
