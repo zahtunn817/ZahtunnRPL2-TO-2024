@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use App\Models\Pelanggan;
 use App\Models\Transaksi;
+use App\Models\DetailTransaksi;
 use App\Http\Requests\StoreTransaksiRequest;
 use App\Http\Requests\UpdateTransaksiRequest;
 use Illuminate\Support\Facades\DB;
@@ -32,33 +33,49 @@ class TransaksiController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreTransaksiRequest $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $last_id = Transaksi::where('tanggal', date('y-m-d'))->orderBy('created_at', 'desc')->select('id')->first();
+
+            $notrans = $last_id !== null ? date('ymd') . sprintf('%04d', substr($last_id->id, 8, 4) + 1) : date('ymd') . '0001';
+
+
+            $inserttransaksi = Transaksi::create([
+                'id' => $notrans,
+                'tanggal' => date('y-m-d'),
+                'total_harga' => $request->total,
+                'metode_pembayaran' => 'cash',
+                'keterangan' => 'Transaksi berhasil',
+                'id_pelanggan' => Pelanggan::orderBy('created_at', 'asc')->first()->id
+            ]);
+
+
+
+            if (!$inserttransaksi) return 'error';
+
+            foreach ($request->orderedList as $detail) {
+                $insertdetail_transaksi = DetailTransaksi::create([
+                    'transaksi_id' => $notrans,
+                    'menu_id' => $detail['menu_id'],
+                    'jumlah' => $detail['qty'],
+                    'subtotal' => $detail['harga'] * $detail['qty']
+                ]);
+            }
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'message' => 'Transaksi berhasil',
+                'notrans' => $notrans,
+            ]);
+        } catch (Exception | QueryException | PDOException $e) {
+            DB::rollBack();
+            return response()->json(['status' => false, 'message' => 'Transaksi gagal', 'error' => $e->getMessage()]);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Transaksi $transaksi)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Transaksi $transaksi)
     {
         //
