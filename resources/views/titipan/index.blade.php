@@ -9,19 +9,19 @@
         </div>
         <div class="card-body">
             @include('templates.alert')
-            <a href="#" class="btn btn-success btn-icon-split mb-3" data-toggle="modal" data-target="#titipan">
+            <a href="#" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#titipan">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
-                <span class="text">Tambah data</span>
+                <span class="text">Tambah produk</span>
             </a>
-            <a href="#" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#titipanExport">
+            <a href="#" class="btn btn-danger btn-icon-split mb-3" data-toggle="modal" data-target="#titipanExport">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-export"></i>
                 </span>
                 <span class="text">Export</span>
             </a>
-            <a href="#" class="btn btn-warning btn-icon-split mb-3" data-toggle="modal" data-target="#titipanImport">
+            <a href="#" class="btn btn-success btn-icon-split mb-3" data-toggle="modal" data-target="#titipanImport">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-import"></i>
                 </span>

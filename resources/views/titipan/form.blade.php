@@ -60,7 +60,7 @@
                 </button>
             </div>
             <div class="modal-body text-center">
-                <a href="titipans/cetakpdf" class="btn btn-danger btn-icon-split mr-3">
+                <a href="{{ route('cetakpdf-titipan') }}" class="btn btn-danger btn-icon-split mr-3">
                     <span class="icon text-white-50">
                         <i class="fas fa-file-pdf"></i>
                     </span>
@@ -72,6 +72,9 @@
                     </span>
                     <span class="text">Excel</span>
                 </a>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
             </div>
         </div>
     </div>
@@ -93,12 +96,12 @@
                             <label for="import" class="col-sm-4 col-form-label">File excel</label>
                             <input type="file" name="import" id="import" class="form-control col-sm-8">
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

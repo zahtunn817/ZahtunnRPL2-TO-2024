@@ -21,6 +21,7 @@ class TitipanController extends Controller
     {
         try {
             $data['produk_titipan'] = Titipan::orderBy('created_at', 'DESC')->get();
+            // return view('titipan.pdf', [
             return view('titipan.index', [
                 'page' => 'titipan',
                 'section' => 'Kelola data',
@@ -99,16 +100,16 @@ class TitipanController extends Controller
     public function importData()
     {
         Excel::import(new TitipanImport, request()->file('import'));
-        return redirect(request()->segment(1))->with('success', 'Import data titipan produk berhasil!');
+        return redirect('titipan')->with('success', 'Import data titipan produk berhasil!');
     }
 
-    public function cetak_pdf()
+    public function cetakpdf()
     {
 
 
-        $titipan = Titipan::all();
-
-        $pdf = PDF::loadView('titipan.pdf_view', compact('titipan'));
-        return $pdf->download('datatitipan.pdf');
+        $produk_titipan = Titipan::all();
+        $date = date('Y-M-d');
+        $pdf = PDF::loadView('titipan.pdf', compact('produk_titipan'));
+        return $pdf->download($date . '-titipan.pdf');
     }
 }
