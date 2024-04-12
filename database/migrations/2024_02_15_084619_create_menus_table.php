@@ -18,8 +18,6 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->unsignedBigInteger('jenis_id');
             $table->foreign('jenis_id')->references('id')->on('jenis');
-            $table->unsignedBigInteger('kategori_id');
-            $table->foreign('kategori_id')->references('id')->on('kategori');
             $table->string('image')->nullable();
             $table->timestamps();
         });

@@ -19,9 +19,6 @@ class KategoriSeeder extends Seeder
             ],
             [
                 'nama_kategori' => 'Minuman'
-            ],
-            [
-                'nama_kategori' => 'Camilan'
             ]
         ];
         foreach ($kategori as $key => $value) {

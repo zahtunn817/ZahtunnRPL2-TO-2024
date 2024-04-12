@@ -10,4 +10,9 @@ class Kategori extends Model
     use HasFactory;
     protected $table = 'kategori';
     protected $guarded = ['id'];
+
+    public function jenis()
+    {
+        return $this->hasMany(Jenis::class, 'kategori_id', 'id');
+    }
 }

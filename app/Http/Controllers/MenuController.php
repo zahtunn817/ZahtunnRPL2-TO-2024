@@ -23,12 +23,10 @@ class MenuController extends Controller
     public function index()
     {
         try {
-            $data['menu'] = DB::table('menu')
-                ->join('jenis', 'menu.jenis_id', '=', 'jenis.id')
-                ->join('kategori', 'menu.kategori_id', '=', 'kategori.id')
-                ->select('menu.*', 'jenis.nama_jenis', 'jenis.id as idJenis', 'kategori.id as idKategori', 'kategori.nama_kategori')->orderBy('created_at', 'DESC')->get();
+            $data['menu'] = Menu::orderBy('created_at', 'DESC')->get();
             $kategori = Kategori::get();
             $jenis = Jenis::get();
+            // dd($data);
             return view('Menu.index', [
                 'page' => 'menu',
                 'section' => 'Kelola data',
@@ -69,7 +67,7 @@ class MenuController extends Controller
             DB::beginTransaction();
             if ($request->has('image')) {
                 if ($request->old_image) {
-                    Storage::disk('public')->delete('pictures-menu/'.$request->old_image);
+                    Storage::disk('public')->delete('pictures-menu/' . $request->old_image);
                 }
                 $image = $request->file('image');
                 $filename = date('Y-m-d') . '-' . $image->getClientOriginalName();
@@ -82,7 +80,7 @@ class MenuController extends Controller
             $data['jenis_id'] = $request->jenis_id;
             $data['kategori_id'] = $request->kategori_id;
             $data['harga'] = $request->harga;
-            
+
             $menu->update($data);
             DB::commit();
             return redirect('menu')->with('success', 'Menu berhasil ditambahkan!');
@@ -96,8 +94,8 @@ class MenuController extends Controller
     {
         try {
             DB::beginTransaction();
-            if($menu->image){
-                Storage::disk('public')->delete('pictures-menu/'.$menu->image);
+            if ($menu->image) {
+                Storage::disk('public')->delete('pictures-menu/' . $menu->image);
             }
             $menu->delete();
             DB::commit();

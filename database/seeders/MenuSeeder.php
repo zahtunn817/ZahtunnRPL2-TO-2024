@@ -15,25 +15,34 @@ class MenuSeeder extends Seeder
     {
         $menu = [
             [
-                'nama_menu' => 'Basreng',
+                'nama_menu' => 'Croissant',
                 'harga' => '5000',
-                'deskripsi' => 'Baso goreng dengan saos.',
+                'deskripsi' => 'Dibaca Quaso-',
                 'jenis_id' => '1',
-                'kategori_id' => '3'
             ],
             [
                 'nama_menu' => 'Nasi Goreng',
                 'harga' => '15000',
                 'deskripsi' => 'Nasi goreng dengan topping telor ceplok.',
                 'jenis_id' => '2',
-                'kategori_id' => '1'
             ],
             [
-                'nama_menu' => 'Milkshake Coklat',
+                'nama_menu' => 'Soto ayam',
                 'harga' => '9000',
-                'deskripsi' => 'Susu kocok segar rasa coklat.',
+                'deskripsi' => 'Soto kuah bening.',
                 'jenis_id' => '3',
-                'kategori_id' => '2'
+            ],
+            [
+                'nama_menu' => 'Soda gembira',
+                'harga' => '6000',
+                'deskripsi' => 'Soda susu + lemon',
+                'jenis_id' => '4',
+            ],
+            [
+                'nama_menu' => 'Milkshake coklat',
+                'harga' => '8000',
+                'deskripsi' => 'Susu kocok rasa coklat.',
+                'jenis_id' => '5',
             ]
         ];
         foreach ($menu as $key => $value) {

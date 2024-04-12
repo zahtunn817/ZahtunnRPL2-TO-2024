@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Jenis;
 use App\Http\Requests\StoreJenisRequest;
 use App\Http\Requests\UpdateJenisRequest;
+use App\Models\Kategori;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Exception;
@@ -20,11 +21,12 @@ class JenisController extends Controller
     public function index()
     {
         try {
+            $kategori = Kategori::get();
             $data['jenis'] = Jenis::orderBy('created_at', 'DESC')->get();
             return view('Jenis.index', [
                 'page' => 'jenis',
                 'section' => 'Kelola data',
-            ])->with($data);
+            ], compact('kategori'))->with($data);
         } catch (QueryException | Exception | PDOException $error) {
             $this->failResponse($error->getCode());
         }
