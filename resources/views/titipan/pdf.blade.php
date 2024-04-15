@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     {{-- <link href="{{ asset('sbadmin') }}/css/sb-admin-2.min.css" rel="stylesheet"> --}}
 </head>
@@ -14,36 +15,33 @@
         /* text-align: left; */
         background-color: #fff;
     }
-    .container {
-        margin-right: auto;
-        margin-left: auto;
-    }
+
     table {
+        width: 80%;
         border-collapse: collapse;
-    }
-    .table {
-        width: 100%;
-        margin-bottom: 1rem;
-    }
-    .table th,
-    .table td {
-        padding: 0.75rem;
-        vertical-align: top;
-        border: 1px solid #e3e6f0;
+        margin: 0 auto;
     }
 
-    .table thead th {
-        vertical-align: bottom;
-        border-bottom: 2px solid #e3e6f0;
+    th,
+    td {
+        border: 1px solid black;
+        padding: 10px;
+        text-align: left;
     }
 
-    .table tbody + tbody {
-        border-top: 2px solid #e3e6f0;
+    th {
+        background-color: #f2f2f2;
     }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
     .text-center {
         text-align: center !important;
-    }   
+    }
 </style>
+
 <body>
     <h3 class="mb-3 text-center">Data titipan barang</h3>
     <div class="container">
@@ -60,17 +58,18 @@
             </thead>
             <tbody>
                 @foreach ($produk_titipan as $item)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->nama_produk }}</td>
-                        <td>{{ $item->nama_supplier }}</td>
-                        <td>Rp. {{ $item->harga_beli }},00</td>
-                        <td>Rp. {{ $item->harga_jual }},00</td>
-                        <td>{{ $item->stok }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->nama_produk }}</td>
+                    <td>{{ $item->nama_supplier }}</td>
+                    <td>Rp. {{ $item->harga_beli }},00</td>
+                    <td>Rp. {{ $item->harga_jual }},00</td>
+                    <td>{{ $item->stok }}</td>
+                </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
 </body>
+
 </html>
