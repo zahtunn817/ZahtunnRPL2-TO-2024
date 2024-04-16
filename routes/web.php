@@ -43,7 +43,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('transaksi', TransaksiController::class);
     Route::resource('jenis', JenisController::class);
     Route::resource('kategori', KategoriController::class);
+
     Route::resource('menu', MenuController::class);
+    Route::get('export/menu', [MenuController::class, 'exportData'])->name('export-menu');
+    Route::post('import/menu', [MenuController::class, 'importData'])->name('import-menu');
+    Route::get('cetakpdf/menu', [MenuController::class, 'cetakpdf'])->name('cetakpdf-menu');
+
     Route::resource('meja', MejaController::class);
     Route::resource('stok', StokController::class);
     Route::resource('pelanggan', PelangganController::class);

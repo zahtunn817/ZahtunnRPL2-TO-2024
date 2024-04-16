@@ -15,6 +15,18 @@
             </span>
             <span class="text">Tambah menu</span>
         </a>
+        <a href="#" class="btn btn-danger btn-icon-split mb-3" data-toggle="modal" data-target="#menuExport">
+            <span class="icon text-white-50">
+                <i class="fas fa-file-export"></i>
+            </span>
+            <span class="text">Export</span>
+        </a>
+        <a href="#" class="btn btn-success btn-icon-split mb-3" data-toggle="modal" data-target="#menuImport">
+            <span class="icon text-white-50">
+                <i class="fas fa-file-import"></i>
+            </span>
+            <span class="text">Import</span>
+        </a>
         @include('menu.data')
     </div>
 </div>
