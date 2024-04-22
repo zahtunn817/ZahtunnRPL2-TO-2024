@@ -37,26 +37,24 @@ class TransaksiController extends Controller
     {
         try {
             DB::beginTransaction();
-            $last_id = Transaksi::where('tanggal', date('y-m-d'))->orderBy('created_at', 'desc')->select('id')->first();
+            $last_id = Transaksi::where('tanggal_transaksi', date('y-m-d'))->orderBy('created_at', 'desc')->select('id')->first();
 
             $notrans = $last_id !== null ? date('ymd') . sprintf('%04d', substr($last_id->id, 8, 4) + 1) : date('ymd') . '0001';
 
 
             $inserttransaksi = Transaksi::create([
                 'id' => $notrans,
-                'tanggal' => date('y-m-d'),
+                'tanggal_transaksi' => date('y-m-d'),
                 'total_harga' => $request->total,
-                'metode_pembayaran' => 'cash',
-                'keterangan' => 'Transaksi berhasil',
-                'id_pelanggan' => Pelanggan::orderBy('created_at', 'asc')->first()->id
+                'metode_pembayaran' => 'Debit',
+                'keterangan' => '',
+                'pelanggan_id' => '1',
+                'user_id' => auth()->id(),
             ]);
-
-
-
-            if (!$inserttransaksi) return 'error';
+            if (!$inserttransaksi->exists) return 'error';
 
             foreach ($request->orderedList as $detail) {
-                $insertdetail_transaksi = DetailTransaksi::create([
+                $insertDetailTransaksi = DetailTransaksi::create([
                     'transaksi_id' => $notrans,
                     'menu_id' => $detail['menu_id'],
                     'jumlah' => $detail['qty'],
@@ -70,8 +68,8 @@ class TransaksiController extends Controller
                 'notrans' => $notrans,
             ]);
         } catch (Exception | QueryException | PDOException $e) {
-            DB::rollBack();
             return response()->json(['status' => false, 'message' => 'Transaksi gagal', 'error' => $e->getMessage()]);
+            DB::rollBack();
         }
     }
 
