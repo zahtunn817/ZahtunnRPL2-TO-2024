@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Jenis;
 use App\Http\Requests\StoreJenisRequest;
 use App\Http\Requests\UpdateJenisRequest;
-use App\Models\Kategori;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\JenisExport;
+use App\Imports\JenisImport;
 use Exception;
 use PDOException;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class JenisController extends Controller
 {
@@ -21,12 +24,12 @@ class JenisController extends Controller
     public function index()
     {
         try {
-            $kategori = Kategori::get();
+            $jenis = jenis::get();
             $data['jenis'] = Jenis::orderBy('created_at', 'DESC')->get();
             return view('Jenis.index', [
                 'page' => 'jenis',
                 'section' => 'Kelola data',
-            ], compact('kategori'))->with($data);
+            ], compact('jenis'))->with($data);
         } catch (QueryException | Exception | PDOException $error) {
             $this->failResponse($error->getCode());
         }
@@ -69,5 +72,27 @@ class JenisController extends Controller
             DB::rollBack();
             return "Terjadi kesalahan :(" . $error->getMessage();
         }
+    }
+
+    public function exportData()
+    {
+        $date = date('Y-M-d');
+        return Excel::download(new JenisExport, $date . '-jenis.xlsx');
+    }
+
+    public function importData()
+    {
+        Excel::import(new JenisImport, request()->file('import'));
+        return redirect('jenis')->with('success', 'Import data jenis produk berhasil!');
+    }
+
+    public function cetakpdf()
+    {
+
+
+        $jenis = Jenis::all();
+        $date = date('Y-M-d');
+        $pdf = PDF::loadView('jenis.pdf', compact('jenis'));
+        return $pdf->download($date . '-jenis.pdf');
     }
 }

@@ -46,6 +46,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('transaksi', TransaksiController::class);
     Route::resource('jenis', JenisController::class);
+    Route::get('export/jenis', [JenisController::class, 'exportData'])->name('export-jenis');
+    Route::post('import/jenis', [JenisController::class, 'importData'])->name('import-jenis');
+    Route::get('cetakpdf/jenis', [JenisController::class, 'cetakpdf'])->name('cetakpdf-jenis');
 
     Route::resource('kategori', KategoriController::class);
     Route::get('export/kategori', [KategoriController::class, 'exportData'])->name('export-kategori');
