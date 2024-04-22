@@ -46,7 +46,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('transaksi', TransaksiController::class);
     Route::resource('jenis', JenisController::class);
+
     Route::resource('kategori', KategoriController::class);
+    Route::get('export/kategori', [KategoriController::class, 'exportData'])->name('export-kategori');
+    Route::post('import/kategori', [KategoriController::class, 'importData'])->name('import-kategori');
+    Route::get('cetakpdf/kategori', [KategoriController::class, 'cetakpdf'])->name('cetakpdf-kategori');
 
     Route::resource('menu', MenuController::class);
     Route::get('export/menu', [MenuController::class, 'exportData'])->name('export-menu');
