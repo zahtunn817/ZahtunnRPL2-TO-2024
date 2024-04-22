@@ -11,6 +11,7 @@ use App\Http\Controllers\StokController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\LaporanController;
 use App\Models\Titipan;
 
 /*
@@ -39,6 +40,9 @@ Route::get('/pdftest', [TitipanController::class, 'index']);
 Route::get('about', [PageController::class, 'about']);
 
 Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('laporanTransaksi', [LaporanController::class, 'index']);
+    Route::post('laporanTransaksi', [LaporanController::class, 'filter']);
 
     Route::resource('transaksi', TransaksiController::class);
     Route::resource('jenis', JenisController::class);
