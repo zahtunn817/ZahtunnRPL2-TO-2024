@@ -61,7 +61,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('cetakpdf/menu', [MenuController::class, 'cetakpdf'])->name('cetakpdf-menu');
 
     Route::resource('meja', MejaController::class);
+
     Route::resource('stok', StokController::class);
+    Route::get('export/stok', [StokController::class, 'exportData'])->name('export-stok');
+    Route::post('import/stok', [StokController::class, 'importData'])->name('import-stok');
+    Route::get('cetakpdf/stok', [StokController::class, 'cetakpdf'])->name('cetakpdf-stok');
+
     Route::resource('pelanggan', PelangganController::class);
     Route::resource('user', UserController::class);
 

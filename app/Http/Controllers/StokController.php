@@ -8,8 +8,12 @@ use App\Http\Requests\StoreStokRequest;
 use App\Http\Requests\UpdateStokRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\StokExport;
+use App\Imports\StokImport;
 use Exception;
 use PDOException;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class StokController extends Controller
 {
@@ -71,5 +75,26 @@ class StokController extends Controller
             DB::rollBack();
             return "Terjadi kesalahan :(" . $error->getMessage();
         }
+    }
+    public function exportData()
+    {
+        $date = date('Y-M-d');
+        return Excel::download(new StokExport, $date . '-stok.xlsx');
+    }
+
+    public function importData()
+    {
+        Excel::import(new StokImport, request()->file('import'));
+        return redirect('stok')->with('success', 'Import data stok produk berhasil!');
+    }
+
+    public function cetakpdf()
+    {
+
+
+        $stok = Stok::all();
+        $date = date('Y-M-d');
+        $pdf = PDF::loadView('stok.pdf', compact('stok'));
+        return $pdf->download($date . '-stok.pdf');
     }
 }
