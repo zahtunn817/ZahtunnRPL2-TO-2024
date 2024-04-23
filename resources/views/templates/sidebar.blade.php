@@ -167,11 +167,20 @@
     </div>
     @endauth
 
+    <hr class="sidebar-divider d-none d-md-block">
+
     <!-- Nav Item - About -->
     <li class="nav-item">
         <a class="nav-link" href="{{ url('about') }}">
             <i class="fas fa-fw fa-info"></i>
             <span><b>Tentang aplikasi</b></span></a>
+    </li>
+
+    <!-- Nav Item - Contact us -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('contact') }}">
+            <i class="fas fa-fw fa-phone"></i>
+            <span><b>Contact us</b></span></a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
 

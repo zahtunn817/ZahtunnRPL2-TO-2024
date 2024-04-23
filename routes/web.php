@@ -38,6 +38,8 @@ Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/pdftest', [TitipanController::class, 'index']);
 
 Route::get('about', [PageController::class, 'about']);
+Route::get('contact', [PageController::class, 'contact']);
+Route::post('kirim-pesan', [PageController::class, 'send'])->name('kirim-pesan');
 
 Route::group(['middleware' => 'auth'], function () {
 
