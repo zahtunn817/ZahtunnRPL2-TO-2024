@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\JenisController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MenuController;
@@ -12,7 +13,6 @@ use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\LaporanController;
-use App\Models\Titipan;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +45,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('laporanTransaksi', [LaporanController::class, 'filter']);
 
     Route::resource('transaksi', TransaksiController::class);
+
+    Route::resource('absensi', AbsensiController::class);
+    Route::get('export/absensi', [AbsensiController::class, 'exportData'])->name('export-absensi');
+    Route::post('import/absensi', [AbsensiController::class, 'importData'])->name('import-absensi');
+    Route::get('cetakpdf/absensi', [AbsensiController::class, 'cetakpdf'])->name('cetakpdf-absensi');
+
     Route::resource('jenis', JenisController::class);
     Route::get('export/jenis', [JenisController::class, 'exportData'])->name('export-jenis');
     Route::post('import/jenis', [JenisController::class, 'importData'])->name('import-jenis');
