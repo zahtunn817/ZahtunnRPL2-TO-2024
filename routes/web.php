@@ -61,6 +61,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('cetakpdf/menu', [MenuController::class, 'cetakpdf'])->name('cetakpdf-menu');
 
     Route::resource('meja', MejaController::class);
+    Route::get('export/meja', [MejaController::class, 'exportData'])->name('export-meja');
+    Route::post('import/meja', [MejaController::class, 'importData'])->name('import-meja');
+    Route::get('cetakpdf/meja', [MejaController::class, 'cetakpdf'])->name('cetakpdf-meja');
 
     Route::resource('stok', StokController::class);
     Route::get('export/stok', [StokController::class, 'exportData'])->name('export-stok');

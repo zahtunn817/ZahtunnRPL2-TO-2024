@@ -7,8 +7,13 @@ use App\Http\Requests\StoreMejaRequest;
 use App\Http\Requests\UpdateMejaRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\MejaExport;
+use App\Imports\MejaImport;
 use Exception;
 use PDOException;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
 
 class MejaController extends Controller
 {
@@ -67,5 +72,27 @@ class MejaController extends Controller
             DB::rollBack();
             return "Terjadi kesalahan :(" . $error->getMessage();
         }
+    }
+
+    public function exportData()
+    {
+        $date = date('Y-M-d');
+        return Excel::download(new MejaExport, $date . '-meja.xlsx');
+    }
+
+    public function importData()
+    {
+        Excel::import(new MejaImport, request()->file('import'));
+        return redirect('meja')->with('success', 'Import data meja produk berhasil!');
+    }
+
+    public function cetakpdf()
+    {
+
+
+        $meja = Meja::all();
+        $date = date('Y-M-d');
+        $pdf = PDF::loadView('meja.pdf', compact('meja'));
+        return $pdf->download($date . '-meja.pdf');
     }
 }
