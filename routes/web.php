@@ -54,6 +54,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('format/absensi', [AbsensiController::class, 'formatData'])->name('format-absensi');
     Route::post('import/absensi', [AbsensiController::class, 'importData'])->name('import-absensi');
     Route::get('cetakpdf/absensi', [AbsensiController::class, 'cetakpdf'])->name('cetakpdf-absensi');
+    Route::get('laporanAbsensi', [AbsensiController::class, 'laporan']);
+    Route::post('laporanAbsensi', [AbsensiController::class, 'filter']);
+    Route::get('export/laporanAbsensi', [AbsensiController::class, 'exportDataLaporan'])->name('laporan-export-absensi');
+    Route::get('cetakpdf/laporanAbsensi', [AbsensiController::class, 'laporanpdf'])->name('laporan-pdf-absensi');
 
     Route::resource('jenis', JenisController::class);
     Route::get('export/jenis', [JenisController::class, 'exportData'])->name('export-jenis');

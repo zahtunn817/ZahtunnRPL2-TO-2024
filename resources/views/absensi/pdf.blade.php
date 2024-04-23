@@ -2,7 +2,7 @@
 @push('style')
 @endpush
 @section('title')
-<h3 class="mb-3 text-center">Absensi</h3>
+<h3 class="mb-3 text-center">Data {{ $title }}</h3>
 @endsection
 @section('table')
 <table class="table">

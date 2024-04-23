@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AbsensiExport;
+use App\Exports\AbsensiLaporanExport;
 use App\Exports\AbsensiFormat;
 use App\Imports\AbsensiImport;
 use Exception;
@@ -38,15 +39,15 @@ class AbsensiController extends Controller
 
     public function store(StoreabsensiRequest $request)
     {
-        // try {
-        //     DB::beginTransaction();
-        Absensi::create($request->all());
-        // DB::commit();
-        return redirect('absensi')->with('success', 'absensi berhasil ditambahkan!');
-        // } catch (QueryException | Exception | PDOException $error) {
-        //     DB::rollBack();
-        //     $this->failResponse($error->getMessage(), $error->getCode());
-        // }
+        try {
+            DB::beginTransaction();
+            Absensi::create($request->all());
+            DB::commit();
+            return redirect('absensi')->with('success', 'absensi berhasil ditambahkan!');
+        } catch (QueryException | Exception | PDOException $error) {
+            DB::rollBack();
+            $this->failResponse($error->getMessage(), $error->getCode());
+        }
     }
 
     public function update(StoreabsensiRequest $request, absensi $absensi)
@@ -94,6 +95,12 @@ class AbsensiController extends Controller
         }
     }
 
+    public function exportDataLaporan()
+    {
+        $date = date('Y-M-d');
+        return Excel::download(new AbsensiLaporanExport, $date . '-absensi.xlsx');
+    }
+
     public function exportData()
     {
         $date = date('Y-M-d');
@@ -113,11 +120,51 @@ class AbsensiController extends Controller
 
     public function cetakpdf()
     {
-
-
+        $title = 'absensi';
         $absensi = Absensi::all();
         $date = date('Y-M-d');
-        $pdf = PDF::loadView('absensi.pdf', compact('absensi'));
+        $pdf = PDF::loadView('absensi.pdf', [
+            'title' => $title,
+        ], compact('absensi'));
+        return $pdf->download($date . '-absensi.pdf');
+    }
+
+    public function laporan()
+    {
+        return view('absensi.laporan.index', [
+            'page' => 'Laporan Absensi',
+            'section' => 'Laporan'
+        ]);
+    }
+
+    public function filter(Request $request)
+    {
+        $tgl_awal = $request->input('tgl_awal');
+        $tgl_akhir = $request->input('tgl_akhir');
+
+        $laporan = Absensi::whereBetween('tanggalMasuk', [$tgl_awal, $tgl_akhir])->get();
+
+        session(['tgl_awal' => $tgl_awal, 'tgl_akhir' => $tgl_akhir]);
+
+        return view('absensi.laporan.index', [
+            'laporan' => $laporan,
+            'page' => 'Laporan Absensi',
+            'section' => 'Laporan'
+        ]);
+    }
+    public function laporanpdf()
+    {
+        $request = app('request');
+        $tgl_awal = $request->session()->get('tgl_awal', date('Y-m-d'));
+        $tgl_akhir = $request->session()->get('tgl_akhir', date('Y-m-d'));
+
+        $title = 'Absensi dari tanggal ' . $tgl_awal . ' s/d ' . $tgl_akhir;
+        $absensi = Absensi::whereBetween('tanggalMasuk', [$tgl_awal, $tgl_akhir])->get();
+
+        $date = date('Ymd');
+        $pdf = PDF::loadView('absensi.pdf', [
+            'title' => $title,
+        ], compact('absensi'));
         return $pdf->download($date . '-absensi.pdf');
     }
 }
