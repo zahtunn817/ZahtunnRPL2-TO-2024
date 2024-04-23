@@ -33,4 +33,43 @@ class AbsensiController extends Controller
             $this->failResponse($error->getCode());
         }
     }
+
+    public function store(StoreabsensiRequest $request)
+    {
+        // try {
+        //     DB::beginTransaction();
+        Absensi::create($request->all());
+        // DB::commit();
+        return redirect('absensi')->with('success', 'absensi berhasil ditambahkan!');
+        // } catch (QueryException | Exception | PDOException $error) {
+        //     DB::rollBack();
+        //     $this->failResponse($error->getMessage(), $error->getCode());
+        // }
+    }
+
+    public function update(StoreabsensiRequest $request, absensi $absensi)
+    {
+        try {
+            DB::beginTransaction();
+            $absensi->update($request->all());
+            DB::commit();
+            return redirect('absensi')->with('success', 'absensi berhasil diupdate!');
+        } catch (QueryException | Exception | PDOException $error) {
+            DB::rollBack();
+            $this->failResponse($error->getMessage(), $error->getCode());
+        }
+    }
+
+    public function destroy(absensi $absensi)
+    {
+        try {
+            DB::beginTransaction();
+            $absensi->delete();
+            DB::commit();
+            return redirect('absensi')->with('success', 'absensi berhasil dihapus!');
+        } catch (QueryException | Exception | PDOException $error) {
+            DB::rollBack();
+            return "Terjadi kesalahan :(" . $error->getMessage();
+        }
+    }
 }

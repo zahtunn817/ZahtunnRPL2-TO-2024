@@ -9,19 +9,19 @@
     </div>
     <div class="card-body">
         @include('templates.alert')
-        <a href="#" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#absensi">
+        <a href="#" class="btn btn-success btn-icon-split mb-3" data-toggle="modal" data-target="#absensi">
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
             </span>
-            <span class="text">Tambah absensi</span>
+            <span class="text">Tambah data</span>
         </a>
-        <a href="#" class="btn btn-danger btn-icon-split mb-3" data-toggle="modal" data-target="#absensiExport">
+        <a href="#" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#absensiExport">
             <span class="icon text-white-50">
                 <i class="fas fa-file-export"></i>
             </span>
             <span class="text">Export</span>
         </a>
-        <a href="#" class="btn btn-success btn-icon-split mb-3" data-toggle="modal" data-target="#absensiImport">
+        <a href="#" class="btn btn-warning btn-icon-split mb-3" data-toggle="modal" data-target="#absensiImport">
             <span class="icon text-white-50">
                 <i class="fas fa-file-import"></i>
             </span>
@@ -33,5 +33,57 @@
 @endsection
 @push('script')
 <script>
+    $('.alert-success').fadeTo(2000, 500).slideUp(500, function() {
+        $('.alert-success').slideUp(500)
+    });
+
+    $('.delete-data').on('click', function(e) {
+        e.preventDefault()
+        let namaKaryawan = $(this).closest('tr').find('td:eq(1)').text()
+        Swal.fire({
+            title: `Apakah data <span style="color:red"><b>${namaKaryawan}</b></span> akan dihapus?`,
+            text: 'Data tidak bisa dikembalikan!',
+            icon: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: 'd33',
+            confirmButtonText: 'Ya, hapus data ini!'
+        }).then((result) => {
+            if (result.isConfirmed)
+                $(e.target).closest('form').submit()
+            else swal.close()
+        })
+    })
+
+    $('#absensi').on('show.bs.modal', function(e) {
+        const btn = $(e.relatedTarget)
+        const mode = btn.data('mode')
+        const namaKaryawan = btn.data('namaKaryawan')
+        const tanggalMasuk = btn.data('tanggalMasuk')
+        const waktuMasuk = btn.data('waktuMasuk')
+        const status = btn.data('status')
+        const waktuKeluar = btn.data('waktuKeluar')
+        const id = btn.data('id')
+        const modal = $(this)
+        if (mode === 'edit') {
+            modal.find('.modal-title').text('Edit absensi')
+            modal.find('#namaKaryawan').val(namaKaryawan)
+            modal.find('#tanggalMasuk').val(tanggalMasuk)
+            modal.find('#waktuMasuk').val(waktuMasuk)
+            modal.find('#status').val(status)
+            modal.find('#waktuKeluar').val(waktuKeluar)
+            modal.find('.modal-body form').attr('action', "{{ url('absensi') }}/" + id)
+            modal.find('#method').html('@method("PATCH")')
+        } else {
+            modal.find('.modal-title').text('Input absensi')
+            modal.find('#namaKaryawan').val('')
+            modal.find('#tanggalMasuk').val('')
+            modal.find('#waktuMasuk').val('')
+            modal.find('#status').val('')
+            modal.find('#waktuKeluar').val('')
+            modal.find('.modal-body form').attr('action', "{{ url('absensi') }}")
+            modal.find('#method').html('')
+        }
+    })
 </script>
 @endpush
