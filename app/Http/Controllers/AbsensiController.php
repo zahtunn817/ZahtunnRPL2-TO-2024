@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AbsensiExport;
+use App\Exports\AbsensiFormat;
 use App\Imports\AbsensiImport;
 use Exception;
 use PDOException;
@@ -97,6 +98,11 @@ class AbsensiController extends Controller
     {
         $date = date('Y-M-d');
         return Excel::download(new AbsensiExport, $date . '-absensi.xlsx');
+    }
+
+    public function formatData()
+    {
+        return Excel::download(new AbsensiFormat, 'format-absensi.xlsx');
     }
 
     public function importData()

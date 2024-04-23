@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('absensi', AbsensiController::class);
     Route::post('/update-waktu-keluar', [AbsensiController::class, 'updateWaktuKeluar'])->name('update.waktu.keluar');
     Route::get('export/absensi', [AbsensiController::class, 'exportData'])->name('export-absensi');
+    Route::get('format/absensi', [AbsensiController::class, 'formatData'])->name('format-absensi');
     Route::post('import/absensi', [AbsensiController::class, 'importData'])->name('import-absensi');
     Route::get('cetakpdf/absensi', [AbsensiController::class, 'cetakpdf'])->name('cetakpdf-absensi');
 

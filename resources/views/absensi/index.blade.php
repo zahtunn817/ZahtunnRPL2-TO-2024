@@ -27,6 +27,12 @@
             </span>
             <span class="text">Import</span>
         </a>
+        <a href="{{ route('format-absensi') }}" class="btn btn-secondary btn-icon-split mb-3">
+            <span class="icon text-white-50">
+                <i class="fas fa-file-download"></i>
+            </span>
+            <span class="text">Unduh format</span>
+        </a>
         @include('absensi.data')
     </div>
 </div>
