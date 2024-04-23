@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absensi;
-use App\Http\Requests\StoreabsensiRequest;
-use App\Http\Requests\UpdateabsensiRequest;
+use Illuminate\Http\Request;
+use App\Http\Requests\StoreAbsensiRequest;
+use App\Http\Requests\UpdateAbsensiRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Maatwebsite\Excel\Facades\Excel;
@@ -58,6 +59,25 @@ class AbsensiController extends Controller
             DB::rollBack();
             $this->failResponse($error->getMessage(), $error->getCode());
         }
+    }
+
+    public function updateWaktuKeluar(Request $request)
+    {
+        dd($request->all());
+        $absensiId = $request->input('id');
+
+        // Cari data absensi berdasarkan ID
+        $absensi = Absensi::find($absensiId);
+
+        if (!$absensi) {
+            return response()->json(['success' => false]);
+        }
+
+        // Update waktu_keluar ke waktu sekarang
+        $absensi->waktuKeluar = now();
+        $absensi->save();
+
+        return response()->json(['success' => true]);
     }
 
     public function destroy(absensi $absensi)

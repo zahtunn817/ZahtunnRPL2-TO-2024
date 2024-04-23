@@ -30,9 +30,16 @@
                 <td>{{ $item->tanggalMasuk }}</td>
                 <td>{{ $item->waktuMasuk }}</td>
                 <td>{{ $item->status }}</td>
-                <td>{{ $item->waktuKeluar }}</td>
                 <td>
-                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#absensi" data-mode="edit" data-id="{{ $item->id }}" data-namaKaryawan="{{ $item->namaKaryawan }}" data-waktuMasuk="{{ $item->waktuMasuk }}" data-namaKaryawan="{{ $item->namaKaryawan }}" data-tanggalMasuk="{{ $item->tanggalMasuk }}" data-waktuMasuk="{{ $item->waktuMasuk }}" data-status="{{ $item->status }}" data-waktuMasuk="{{ $item->waktuMasuk }}" data-waktuKeluar="{{ $item->waktuKeluar }}">
+                    @if ($item->waktuKeluar === null)
+                    <button type="button" class="btn btn-success btnSelesai" data-id="{{ $item->id }}">Selesai</button>
+                    @else
+                    {{ $item->waktuKeluar }}
+                    @endif
+
+                </td>
+                <td>
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#absensi" data-mode="edit" data-id="{{ $item->id }}" data-nama_karyawan="{{ $item->namaKaryawan }}" data-waktuMasuk="{{ $item->waktuMasuk }}" data-namaKaryawan="{{ $item->namaKaryawan }}" data-tanggalMasuk="{{ $item->tanggalMasuk }}" data-waktuMasuk="{{ $item->waktuMasuk }}" data-status="{{ $item->status }}" data-waktuMasuk="{{ $item->waktuMasuk }}" data-waktuKeluar="{{ $item->waktuKeluar }}">
                         <i class='fas fa-pen'></i>
                     </button>
                     <form action="{{ route('absensi.destroy', $item->id) }}" method="POST" class="d-inline form-delete" style="display:inline;">

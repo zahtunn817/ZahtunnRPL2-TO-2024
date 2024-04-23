@@ -58,13 +58,14 @@
     $('#absensi').on('show.bs.modal', function(e) {
         const btn = $(e.relatedTarget)
         const mode = btn.data('mode')
-        const namaKaryawan = btn.data('namaKaryawan')
+        const namaKaryawan = btn.data('nama_karyawan')
         const tanggalMasuk = btn.data('tanggalMasuk')
         const waktuMasuk = btn.data('waktuMasuk')
         const status = btn.data('status')
         const waktuKeluar = btn.data('waktuKeluar')
         const id = btn.data('id')
         const modal = $(this)
+        console.log(namaKaryawan)
         if (mode === 'edit') {
             modal.find('.modal-title').text('Edit absensi')
             modal.find('#namaKaryawan').val(namaKaryawan)
@@ -85,5 +86,40 @@
             modal.find('#method').html('')
         }
     })
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const btnSelesai = document.querySelectorAll('.btnSelesai');
+
+        btnSelesai.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const absensiId = this.getAttribute('data-id');
+                updateWaktuKeluar(absensiId);
+            });
+        });
+
+        function updateWaktuKeluar(absensiId) {
+            // Kirim request AJAX untuk update waktu keluar
+            fetch('/update-waktu-keluar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        id: absensiId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Waktu keluar berhasil diupdate!');
+                        location.reload(); // Reload halaman untuk refresh data
+                    } else {
+                        alert('Gagal mengupdate waktu keluar.');
+                    }
+                });
+        }
+    });
 </script>
 @endpush
