@@ -2,16 +2,30 @@
 
 namespace App\Imports;
 
-use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\ToCollection;
+use App\Models\Absensi;
+use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class AbsensiImport implements ToCollection
+class AbsensiImport implements ToModel, WithHeadingRow
 {
     /**
-    * @param Collection $collection
-    */
-    public function collection(Collection $collection)
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function model(array $row)
     {
-        //
+        return new Absensi([
+            'namaKaryawan' => $row['nama_karyawan'],
+            'tanggalMasuk' => $row['tanggal_masuk'],
+            'waktuMasuk' => $row['waktu_masuk'],
+            'status' => $row['status'],
+            'waktuKeluar' => $row['waktu_keluar']
+        ]);
+    }
+
+    public function headingRow(): int
+    {
+        return 3;
     }
 }

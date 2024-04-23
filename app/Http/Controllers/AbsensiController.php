@@ -72,4 +72,26 @@ class AbsensiController extends Controller
             return "Terjadi kesalahan :(" . $error->getMessage();
         }
     }
+
+    public function exportData()
+    {
+        $date = date('Y-M-d');
+        return Excel::download(new AbsensiExport, $date . '-absensi.xlsx');
+    }
+
+    public function importData()
+    {
+        Excel::import(new AbsensiImport, request()->file('import'));
+        return redirect('absensi')->with('success', 'Import data absensi produk berhasil!');
+    }
+
+    public function cetakpdf()
+    {
+
+
+        $absensi = Absensi::all();
+        $date = date('Y-M-d');
+        $pdf = PDF::loadView('absensi.pdf', compact('absensi'));
+        return $pdf->download($date . '-absensi.pdf');
+    }
 }
