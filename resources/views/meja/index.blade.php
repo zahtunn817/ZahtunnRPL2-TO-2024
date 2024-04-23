@@ -67,15 +67,13 @@
             modal.find('.modal-title').text('Edit meja')
             modal.find('#nomor_meja').val(nomor_meja)
             modal.find('#kapasitas').val(kapasitas)
-            modal.find('.modal-body form').attr('action', '{{ url('
-                meja ') }}/' + id)
+            modal.find('.modal-body form').attr('action', "{{ url('meja ') }}/" + id)
             modal.find('#method').html('@method("PATCH")')
         } else {
             modal.find('.modal-title').text('Input meja')
             modal.find('#nomor_meja').val('')
             modal.find('#kapasitas').val('')
-            modal.find('.modal-body form').attr('action', '{{ url('
-                meja ') }}')
+            modal.find('.modal-body form').attr('action', "{{ url('meja') }}")
             modal.find('#method').html('')
         }
     })

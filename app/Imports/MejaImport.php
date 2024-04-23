@@ -15,8 +15,13 @@ class MejaImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
+        if ($row['kapasitas'] == 0) {
+            $row['kapasitas'] = 0;
+        } else {
+            $row['kapasitas'];
+        }
         return new Meja([
-            'nomor_meja' => $row['nomor meja'],
+            'nomor_meja' => $row['nomor_meja'],
             'kapasitas' => $row['kapasitas'],
         ]);
     }

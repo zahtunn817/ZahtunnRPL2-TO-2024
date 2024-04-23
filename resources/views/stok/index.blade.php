@@ -67,15 +67,13 @@
             modal.find('.modal-title').text('Edit stok')
             modal.find('#menu_id').val(menu_id)
             modal.find('#jumlah').val(jumlah)
-            modal.find('.modal-body form').attr('action', '{{ url('
-                stok ') }}/' + id)
+            modal.find('.modal-body form').attr('action', "{{ url('stok') }}/" + id)
             modal.find('#method').html('@method("PATCH")')
         } else {
             modal.find('.modal-title').text('Input stok')
             modal.find('#menu_id').val('')
             modal.find('#jumlah').val('')
-            modal.find('.modal-body form').attr('action', '{{ url('
-                stok ') }}')
+            modal.find('.modal-body form').attr('action', "{{ url('stok') }}")
             modal.find('#method').html('')
         }
     })

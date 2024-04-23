@@ -29,14 +29,28 @@
     <!-- Nav Item - Pemesanan meja -->
     {{-- <li class="nav-item">
         <a class="nav-link" href="{{ url('pemesanan') }}">
-            <i class="fas fa-fw fa-clipboard-check"></i>
-            <span><b>Pemesanan meja</b></span></a>
+    <i class="fas fa-fw fa-clipboard-check"></i>
+    <span><b>Pemesanan meja</b></span></a>
     </li> --}}
     <!-- Nav Item - Transaksi -->
     <li class="nav-item">
         <a class="nav-link" href="{{ url('transaksi') }}">
             <i class="fas fa-fw fa-credit-card"></i>
             <span><b>Transaksi</b></span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Absensi
+    </div>
+
+    <!-- Nav Item - Absensi -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('absensi') }}">
+            <i class="fas fa-fw fa-clock"></i>
+            <span><b>Absensi</b></span></a>
     </li>
 
     <!-- Divider -->
@@ -74,8 +88,7 @@
     </li>
     <!-- Nav Item - Labels Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
-            aria-expanded="true" aria-controls="collapseOne">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
             <i class="fas fa-fw fa-tag"></i>
             <span><b>Labels</b></span>
         </a>
@@ -114,8 +127,7 @@
 
     <!-- Nav Item - Kelola laporan Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-database"></i>
             <span><b>Kelola laporan</b></span>
         </a>
@@ -129,20 +141,20 @@
     <!-- Nav Item - Laporan pemesanan -->
     {{-- <li class="nav-item">
         <a class="nav-link" href="{{ url('laporanPemesanan') }}">
-            <i class="fas fa-fw fa-clipboard-check"></i>
-            <span><b>Laporan pemesanan</b></span></a>
+    <i class="fas fa-fw fa-clipboard-check"></i>
+    <span><b>Laporan pemesanan</b></span></a>
     </li> --}}
     <!-- Nav Item - Laporan transaksi -->
     <li class="nav-item">
         <a class="nav-link" href="{{ url('laporanTransaksi') }}">
             <i class="fas fa-fw fa-credit-card"></i>
             <span><b>Laporan transaksi</b></span></a>
-    {{-- </li>
+        {{-- </li>
     <!-- Nav Item - Riwayat -->
     <li class="nav-item">
         <a class="nav-link" href="{{ url('riwayat') }}">
-            <i class="fas fa-fw fa-clock"></i>
-            <span><b>Riwayat</b></span></a>
+        <i class="fas fa-fw fa-clock"></i>
+        <span><b>Riwayat</b></span></a>
     </li> --}}
 
     @else
