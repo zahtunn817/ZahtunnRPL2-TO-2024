@@ -65,14 +65,12 @@
         if (mode === 'edit') {
             modal.find('.modal-title').text('Edit kategori')
             modal.find('#nama_kategori').val(nama_kategori)
-            modal.find('.modal-body form').attr('action', '{{ url('
-                kategori ') }}/' + id)
+            modal.find('.modal-body form').attr('action', "{{ url('kategori') }}/" + id)
             modal.find('#method').html('@method("PATCH")')
         } else {
             modal.find('.modal-title').text('Input kategori')
             modal.find('#nama_kategori').val('')
-            modal.find('.modal-body form').attr('action', '{{ url('
-                kategori ') }}')
+            modal.find('.modal-body form').attr('action', "{{ url('kategori') }}")
             modal.find('#method').html('')
         }
     })

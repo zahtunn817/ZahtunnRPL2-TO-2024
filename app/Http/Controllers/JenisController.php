@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jenis;
+use App\Models\Kategori;
 use App\Http\Requests\StoreJenisRequest;
 use App\Http\Requests\UpdateJenisRequest;
 use Illuminate\Support\Facades\DB;
@@ -24,12 +25,12 @@ class JenisController extends Controller
     public function index()
     {
         try {
-            $jenis = jenis::get();
+            $kategori = Kategori::get();
             $data['jenis'] = Jenis::orderBy('created_at', 'DESC')->get();
             return view('Jenis.index', [
                 'page' => 'jenis',
                 'section' => 'Kelola data',
-            ], compact('jenis'))->with($data);
+            ], compact('kategori'))->with($data);
         } catch (QueryException | Exception | PDOException $error) {
             $this->failResponse($error->getCode());
         }
@@ -37,15 +38,15 @@ class JenisController extends Controller
 
     public function store(StoreJenisRequest $request)
     {
-        try {
-            DB::beginTransaction();
-            Jenis::create($request->all());
-            DB::commit();
-            return redirect('jenis')->with('success', 'Jenis berhasil ditambahkan!');
-        } catch (QueryException | Exception | PDOException $error) {
-            DB::rollBack();
-            $this->failResponse($error->getMessage(), $error->getCode());
-        }
+        // try {
+        //     DB::beginTransaction();
+        Jenis::create($request->all());
+        // DB::commit();
+        return redirect('jenis')->with('success', 'Jenis berhasil ditambahkan!');
+        // } catch (QueryException | Exception | PDOException $error) {
+        // DB::rollBack();
+        // $this->failResponse($error->getMessage(), $error->getCode());
+        // }
     }
 
     public function update(StoreJenisRequest $request, Jenis $jeni)
@@ -88,8 +89,6 @@ class JenisController extends Controller
 
     public function cetakpdf()
     {
-
-
         $jenis = Jenis::all();
         $date = date('Y-M-d');
         $pdf = PDF::loadView('jenis.pdf', compact('jenis'));

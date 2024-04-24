@@ -60,18 +60,20 @@
         const btn = $(e.relatedTarget)
         const mode = btn.data('mode')
         const nama_jenis = btn.data('nama_jenis')
+        const kategori_id = btn.data('kategori_id')
         const id = btn.data('id')
         const modal = $(this)
         if (mode === 'edit') {
             modal.find('.modal-title').text('Edit jenis')
             modal.find('#nama_jenis').val(nama_jenis)
+            modal.find('#kategori_id').val(kategori_id)
             modal.find('.modal-body form').attr('action', "{{ url('jenis') }}/" + id)
             modal.find('#method').html('@method("PATCH")')
         } else {
             modal.find('.modal-title').text('Input jenis')
             modal.find('#nama_jenis').val('')
-            modal.find('.modal-body form').attr('action', '{{ url('
-                jenis ') }}')
+            modal.find('#kategori_id').val('')
+            modal.find('.modal-body form').attr('action', "{{ url('jenis') }}")
             modal.find('#method').html('')
         }
     })

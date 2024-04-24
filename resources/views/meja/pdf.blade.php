@@ -2,7 +2,7 @@
 @push('style')
 @endpush
 @section('title')
-<h3 class="mb-3 text-center">Meja</h3>
+<h3 class="mb-3 text-center">Data Meja</h3>
 @endsection
 @section('table')
 <table class="table">
