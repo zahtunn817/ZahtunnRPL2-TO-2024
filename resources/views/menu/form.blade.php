@@ -18,7 +18,6 @@
                     </div>
                     <div class="form-group row">
                         <label for="deskripsi" class="col-sm-4 col-form-label">Deskripsi</label>
-                        {{-- <input type="text" class="form-control col-sm-8" id="deskripsi" name="deskripsi" placeholder="Deskripsi"> --}}
                         <textarea class="form-control col-sm-8" name="deskripsi" id="deskripsi" cols="30" rows="3" placeholder="Deskripi"></textarea>
                     </div>
                     <div class="form-group row">

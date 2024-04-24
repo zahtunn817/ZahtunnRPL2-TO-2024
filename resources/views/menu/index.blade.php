@@ -75,7 +75,7 @@
             modal.find('#jenis_id').val(jenis_id)
             modal.find('#old_image').val(image)
             modal.find('.img-preview').attr('src', '{{ asset("storage/pictures-menu") }}/' + image)
-            modal.find('.modal-body form').attr('action', '{{ url("menu") }}/' + id)
+            modal.find('.modal-body form').attr('action', "{{ url('menu') }}/" + id)
             modal.find('#method').html('@method("PATCH")')
         } else {
             modal.find('.modal-title').text('Input menu')
@@ -85,7 +85,7 @@
             modal.find('#jenis_id').val('')
             modal.find('#old_image').val('')
             modal.find('.img-preview ').attr('src', '')
-            modal.find('.modal-body form').attr('action', '{{ url("menu") }}')
+            modal.find('.modal-body form').attr('action', "{{ url('menu')}}")
             modal.find('#method').html('')
         }
     })

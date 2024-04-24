@@ -33,7 +33,7 @@
                 <td>{{ optional($item->jenis)->nama_jenis }}</td>
                 <td>{{ optional(optional($item->jenis)->kategori)->nama_kategori }}</td>
 
-                <td><img class="img-fluid" style="max-width: 70px; height: auto; display: block" src="{{asset('storage/pictures-menu/'.$item->image) }}" alt="Tidak ada gambar"></td>
+                <td><img class="img-fluid" style="max-width: 70px; height: auto; display: block" src="{{ asset('storage/pictures-menu/'.$item->image) }}" alt="Tidak ada gambar"></td>
 
                 <td>Rp. {{ $item->harga }}</td>
                 <td>

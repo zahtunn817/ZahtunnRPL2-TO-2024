@@ -30,7 +30,6 @@ class MenuController extends Controller
             $data['menu'] = Menu::orderBy('created_at', 'DESC')->get();
             $kategori = Kategori::get();
             $jenis = Jenis::get();
-            // dd($data);
             return view('Menu.index', [
                 'page' => 'menu',
                 'section' => 'Kelola data',
