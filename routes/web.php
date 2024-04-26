@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('laporanTransaksi', [LaporanController::class, 'filter']);
 
     Route::resource('transaksi', TransaksiController::class);
+    Route::get('nota/{nofaktur}', [TransaksiController::class, 'faktur']);
 
     Route::resource('absensi', AbsensiController::class);
     Route::post('/update-waktu-keluar', [AbsensiController::class, 'updateWaktuKeluar'])->name('update.waktu.keluar');

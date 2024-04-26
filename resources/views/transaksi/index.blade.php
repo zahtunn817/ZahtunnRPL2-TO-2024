@@ -89,15 +89,37 @@
             $('#total').html(sum());
         });
 
-        $('#btn-bayar').on('click', function() {
-            $.ajax({
-                url: "{{  route('transaksi.store') }}",
-                method: "POST",
+        $('#pelanggan_id').on('change', function() {
+            const pelanggan_id = $(this).val();
+            orderedList.push({
+                'pelanggan_id': pelanggan_id
+            });
+        });
 
+
+        $('#btn-bayar').on('click', function() {
+
+            const date = new Date();
+            const formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+            console.log("Ordered List:", orderedList);
+            console.log("Total:", sum());
+            // Memastikan total harga valid
+            const total = sum();
+            if (isNaN(total) || total <= 0) {
+                alert('Total harga tidak valid!');
+                return;
+            }
+
+            $.ajax({
+                url: "{{ route('transaksi.store') }}",
+                method: "POST",
                 data: {
                     "_token": "{{ csrf_token() }}",
                     orderedList: orderedList,
-                    total: sum(),
+                    total: total,
+                    pelanggan_id: $('#pelanggan_id').val(),
+                    tanggal_transaksi: formattedDate, // Tambahkan tanggal_transaksi
+                    metode_pembayaran: 'Debit' // Tambahkan metode_pembayaran
                 },
                 success: function(data) {
                     console.log("Success:", data);
@@ -108,8 +130,7 @@
                         denyButtonText: `Ok`
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.open("{{  url('nota/2343432') }}")
-                            location.reload()
+                            window.open("{{  url('nota') }}/" + data.notrans)
                         } else if (result.isDenied) {
                             location.reload()
                         }
@@ -134,7 +155,7 @@
                 orderedList[index].qty += 1;
             } else {
                 const dataN = {
-                    'id': id,
+                    'id': id, // Tambahkan menu_id
                     'menu': menu_clicked,
                     'harga': harga,
                     'qty': 1

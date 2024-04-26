@@ -21,12 +21,11 @@ class TransaksiController extends Controller
     public function index()
     {
         try {
-            // $data['transaksi'] = Transaksi::orderBy('created_at', 'DESC')->get();
             $data['menu'] = Menu::get();
             $data['pelanggan'] = Pelanggan::get();
             return view('Transaksi.index', [
                 'page' => 'transaksi',
-                'section' => 'Order',
+                'section' => 'Transaksi',
             ])->with($data);
         } catch (QueryException | Exception | PDOException $error) {
             $this->failResponse($error->getCode());
@@ -37,46 +36,66 @@ class TransaksiController extends Controller
     {
         try {
             DB::beginTransaction();
-            $last_id = Transaksi::where('tanggal_transaksi', date('y-m-d'))->orderBy('created_at', 'desc')->select('id')->first();
+
+            // Membuat transaksi baru
+            $last_id = Transaksi::where('tanggal_transaksi', date('y-m-d'))
+                ->orderBy('created_at', 'desc')
+                ->select('id')
+                ->first();
 
             $notrans = $last_id !== null ? date('ymd') . sprintf('%04d', substr($last_id->id, 8, 4) + 1) : date('ymd') . '0001';
-
 
             $inserttransaksi = Transaksi::create([
                 'id' => $notrans,
                 'tanggal_transaksi' => date('y-m-d'),
                 'total_harga' => $request->total,
-                'metode_pembayaran' => 'Debit',
+                'metode_pembayaran' => $request->metode_pembayaran,
                 'keterangan' => '',
-                'pelanggan_id' => '1',
+                'pelanggan_id' => $request->pelanggan_id,
                 'user_id' => auth()->id(),
             ]);
-            if (!$inserttransaksi->exists) return 'error';
+
+            if (!$inserttransaksi->exists) {
+                DB::rollBack();
+                return response()->json(['status' => false, 'message' => 'Transaksi gagal', 'error' => 'Gagal membuat transaksi']);
+            }
 
             foreach ($request->orderedList as $detail) {
                 $insertDetailTransaksi = DetailTransaksi::create([
-                    'transaksi_id' => $notrans,
-                    'menu_id' => $detail['menu_id'],
+                    'transaksi_id' => $inserttransaksi->id,
+                    'menu_id' => $detail['id'],
                     'jumlah' => $detail['qty'],
                     'subtotal' => $detail['harga'] * $detail['qty']
                 ]);
             }
+
             DB::commit();
+
             return response()->json([
                 'status' => true,
                 'message' => 'Transaksi berhasil',
-                'notrans' => $notrans,
+                'notrans' => $inserttransaksi->id,
             ]);
         } catch (Exception | QueryException | PDOException $e) {
-            return response()->json(['status' => false, 'message' => 'Transaksi gagal', 'error' => $e->getMessage()]);
             DB::rollBack();
+            return response()->json(['status' => false, 'message' => 'Transaksi gagal', 'error' => $e->getMessage()]);
         }
     }
 
 
-    public function edit(Transaksi $transaksi)
+
+    public function faktur($nofaktur)
     {
-        //
+        try {
+            $data['transaksi'] = Transaksi::where('id', $nofaktur)->with(['detailTransaksi' => function ($query) {
+                $query->with('menu');
+            }])->first();
+            // dd($nofaktur);
+            return view('transaksi.nota')->with($data);
+        } catch (Exception | QueryException | PDOException $e) {
+            DB::rollBack();
+            return response()->json(['status' => false, 'message' => 'Transaksi gagal', 'error' => $e->getMessage()]);
+        }
     }
 
     /**
