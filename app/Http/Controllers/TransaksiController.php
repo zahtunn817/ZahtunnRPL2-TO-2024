@@ -62,7 +62,7 @@ class TransaksiController extends Controller
                 'id' => $notrans,
                 'tanggal_transaksi' => date('y-m-d'),
                 'total_harga' => $request->total,
-                'metode_pembayaran' => $request->payment,
+                'metode_pembayaran' => $request->metode_pembayaran,
                 'keterangan' => '',
                 'pelanggan_id' => $request->pelanggan_id,
                 'user_id' => auth()->id(),

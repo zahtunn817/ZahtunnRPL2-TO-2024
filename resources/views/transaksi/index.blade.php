@@ -94,20 +94,21 @@
             $('#total').html(sum());
         });
 
-        $('#pelanggan_id').on('change', function() {
-            const pelanggan_id = $(this).val();
-            orderedList.push({
-                'pelanggan_id': pelanggan_id
-            });
-        });
-
 
         $('#btn-bayar').on('click', function() {
 
+
             const date = new Date();
             const formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+
+            const pelangganId = $('#pelanggan_id').val();
+            const metodePembayaran = $('#metode_pembayaran').val();
+
             console.log("Ordered List:", orderedList);
             console.log("Total:", sum());
+            console.log("Pelanggan ID:", pelangganId);
+            console.log("Metode Pembayaran:", metodePembayaran);
+
             // Memastikan total harga valid
             const total = sum();
             if (isNaN(total) || total <= 0) {
@@ -122,9 +123,9 @@
                     "_token": "{{ csrf_token() }}",
                     orderedList: orderedList,
                     total: total,
-                    pelanggan_id: $('#pelanggan_id').val(),
-                    tanggal_transaksi: formattedDate, // Tambahkan tanggal_transaksi
-                    metode_pembayaran: 'Debit' // Tambahkan metode_pembayaran
+                    pelanggan_id: pelangganId,
+                    metode_pembayaran: metodePembayaran,
+                    tanggal_transaksi: formattedDate
                 },
                 success: function(data) {
                     console.log("Success:", data);
