@@ -6,7 +6,7 @@
                 <th>Nama menu</th>
                 <th>Deskripsi</th>
                 <th>Jenis</th>
-                <th>Kategori</th>
+                <!-- <th>Kategori</th> -->
                 <th>Gambar</th>
                 <th>Harga</th>
                 <th>Aksi</th>
@@ -18,7 +18,7 @@
                 <th>Nama menu</th>
                 <th>Deskripsi</th>
                 <th>Jenis</th>
-                <th>Kategori</th>
+                <!-- <th>Kategori</th> -->
                 <th>Gambar</th>
                 <th>Harga</th>
                 <th>Aksi</th>
@@ -31,7 +31,7 @@
                 <td>{{ $item->nama_menu }}</td>
                 <td>{{ $item->deskripsi }}</td>
                 <td>{{ optional($item->jenis)->nama_jenis }}</td>
-                <td>{{ optional(optional($item->jenis)->kategori)->nama_kategori }}</td>
+                <!-- <td>{{ optional(optional($item->jenis)->kategori)->nama_kategori }}</td> -->
 
                 <td><img class="img-fluid" style="max-width: 70px; height: auto; display: block" src="{{ asset('storage/pictures-menu/'.$item->image) }}" alt="Tidak ada gambar"></td>
 

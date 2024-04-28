@@ -4,7 +4,7 @@
             <tr>
                 <th>No</th>
                 <th>Nama jenis</th>
-                <th>Kategori</th>
+                <!-- <th>Kategori</th> -->
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -12,7 +12,7 @@
             <tr>
                 <th>No</th>
                 <th>Nama jenis</th>
-                <th>Kategori</th>
+                <!-- <th>Kategori</th> -->
                 <th>Aksi</th>
             </tr>
         </tfoot>
@@ -21,7 +21,7 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $item->nama_jenis }}</td>
-                <td>{{ optional($item->kategori)->nama_kategori }}</td>
+                <!-- <td>{{ optional($item->kategori)->nama_kategori }}</td> -->
                 <td>
                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#jenis" data-mode="edit" data-id="{{ $item->id }}" data-nama_jenis="{{ $item->nama_jenis }}" data-kategori_id="{{ $item->kategori_id }}">
                         <i class='fas fa-pen'></i>

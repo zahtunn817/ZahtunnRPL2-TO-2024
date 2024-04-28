@@ -53,18 +53,18 @@
     </li>
 
     <!-- Divider -->
-    <hr class="sidebar-divider">
+    <!-- <hr class="sidebar-divider"> -->
     <!-- Heading -->
-    <div class="sidebar-heading">
+    <!-- <div class="sidebar-heading">
         Absensi
-    </div>
+    </div> -->
 
     <!-- Nav Item - Absensi -->
-    <li class="nav-item">
+    <!-- <li class="nav-item">
         <a class="nav-link" href="{{ url('absensi') }}">
             <i class="fas fa-fw fa-clock"></i>
             <span><b>Absensi</b></span></a>
-    </li>
+    </li> -->
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -93,14 +93,14 @@
             <i class="fas fa-fw fa-clipboard-list"></i>
             <span><b>Menu</b></span></a>
     </li>
-    <!-- Nav Item - Menu -->
-    <li class="nav-item">
+    <!-- Nav Item - Titipan -->
+    <!-- <li class="nav-item">
         <a class="nav-link" href="{{ url('titipan') }}">
             <i class="fas fa-fw fa-box"></i>
             <span><b>Produk Titipan</b></span></a>
-    </li>
+    </li> -->
     <!-- Nav Item - Labels Collapse Menu -->
-    <li class="nav-item">
+    <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
             <i class="fas fa-fw fa-tag"></i>
             <span><b>Labels</b></span>
@@ -111,13 +111,19 @@
                 <a class="collapse-item" href="{{ url('kategori') }}">Kategori</a>
             </div>
         </div>
+    </li> -->
+    <!-- Nav Item - Jenis -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('jenis') }}">
+            <i class="fas fa-fw fa-tag"></i>
+            <span><b>Jenis</b></span></a>
     </li>
     <!-- Nav Item - Meja -->
-    <li class="nav-item">
+    <!-- <li class="nav-item">
         <a class="nav-link" href="{{ url('meja') }}">
             <i class="fas fa-fw fa-utensils"></i>
             <span><b>Meja</b></span></a>
-    </li>
+    </li> -->
     <!-- Nav Item - Pelanggan -->
     <li class="nav-item">
         <a class="nav-link" href="{{ url('pelanggan') }}">

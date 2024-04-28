@@ -21,7 +21,7 @@ class DetailTransaksiFactory extends Factory
         $transaksiId = fake()->randomElement(Transaksi::select('id')->get());
         $menuId = fake()->randomElement(Menu::select('id')->get());
         $jumlah = fake()->numberBetween(1, 5);
-        $subtotal = fake()->numberBetween(1, 100) . "000" * $jumlah;
+        $subtotal = fake()->numberBetween(1, 100) . "000";
         return [
             'transaksi_id' => $transaksiId,
             'menu_id' => $menuId,

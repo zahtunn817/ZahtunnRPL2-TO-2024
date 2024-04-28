@@ -82,7 +82,10 @@ class UserController extends Controller
     public function index()
     {
         try {
-            $data['user'] = User::orderBy('created_at', 'DESC')->get();
+            $data['user'] = DB::table('users')
+                ->orderBy('created_at', 'DESC')
+                ->whereRaw("roles <> 'masterkey'")
+                ->get();
             return view('User.index', [
                 'page' => 'user',
                 'section' => 'Kelola data'
