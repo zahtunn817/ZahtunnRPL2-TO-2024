@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\JenisController;
 use App\Http\Controllers\KategoriController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\LaporanController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +45,7 @@ Route::post('kirim-pesan', [PageController::class, 'send'])->name('kirim-pesan')
 
 Route::group(['middleware' => 'auth'], function () {
 
+    Route::get('dashboard', [DashboardController::class, 'index']);
     Route::get('laporanTransaksi', [LaporanController::class, 'index']);
     Route::post('laporanTransaksi', [LaporanController::class, 'filter']);
 

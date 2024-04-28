@@ -13,6 +13,6 @@ class Stok extends Model
 
     public function menu()
     {
-        return $this->belongsTo(Menu::class, 'menu_id');
+        return $this->hasOne(Menu::class, 'id', 'stok_id');
     }
 }

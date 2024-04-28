@@ -19,6 +19,6 @@ class Menu extends Model
 
     public function stok()
     {
-        return $this->belongsTo(Stok::class, 'stok_id');
+        return $this->hasOne(Stok::class, 'id', 'stok_id');
     }
 }
