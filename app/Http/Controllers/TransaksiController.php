@@ -21,6 +21,19 @@ class TransaksiController extends Controller
     public function index()
     {
         try {
+            $data['transaksi'] = Transaksi::get();
+            return view('Transaksi.histori', [
+                'page' => 'transaksi',
+                'section' => 'Transaksi',
+            ])->with($data);
+        } catch (QueryException | Exception | PDOException $error) {
+            $this->failResponse($error->getCode());
+        }
+    }
+
+    public function transaksi()
+    {
+        try {
             $data['menu'] = Menu::get();
             $data['pelanggan'] = Pelanggan::get();
             return view('Transaksi.index', [
@@ -49,7 +62,7 @@ class TransaksiController extends Controller
                 'id' => $notrans,
                 'tanggal_transaksi' => date('y-m-d'),
                 'total_harga' => $request->total,
-                'metode_pembayaran' => $request->metode_pembayaran,
+                'metode_pembayaran' => $request->payment,
                 'keterangan' => '',
                 'pelanggan_id' => $request->pelanggan_id,
                 'user_id' => auth()->id(),
@@ -98,12 +111,19 @@ class TransaksiController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(UpdateTransaksiRequest $request, Transaksi $transaksi)
     {
-        //
+        try {
+            $data['keterangan'] = $request->keterangan;
+
+            $transaksi->update($data);
+            DB::commit();
+            return redirect('transaksi')->with('success', 'Keterangan berhasil diubah!');
+        } catch (QueryException | Exception | PDOException $error) {
+            DB::rollBack();
+            $this->failResponse($error->getMessage(), $error->getCode());
+        }
     }
 
     /**

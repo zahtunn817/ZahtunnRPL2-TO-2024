@@ -7,10 +7,10 @@
         </div>
         <div class="sidebar-brand-text mx-3">Cafe <sup>SE2</sup></div>
     </a>
+    @auth
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
-    @auth
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
@@ -34,9 +34,22 @@
     </li> --}}
     <!-- Nav Item - Transaksi -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ url('transaksi') }}">
+        <a class="nav-link" href="{{ url('mulai-transaksi') }}">
             <i class="fas fa-fw fa-credit-card"></i>
             <span><b>Transaksi</b></span></a>
+    </li>
+
+    <!-- Nav Item - Laporan transaksi -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('laporanTransaksi') }}">
+            <i class="fas fa-fw fa-book"></i>
+            <span><b>Laporan transaksi</b></span></a>
+    </li>
+    <!-- Nav Item - Riwayat transaksi -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('transaksi') }}">
+            <i class="fas fa-fw fa-clipboard-check"></i>
+            <span><b>Riwayat transaksi</b></span></a>
     </li>
 
     <!-- Divider -->
@@ -118,56 +131,18 @@
             <span><b>User</b></span></a>
     </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Laporan
-    </div>
 
-    <!-- Nav Item - Kelola laporan Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-database"></i>
-            <span><b>Kelola laporan</b></span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ url('dataPemesanan') }}">Pemesanan</a>
-                <a class="collapse-item" href="{{ url('dataTransaksi') }}">Transaksi</a>
-            </div>
-        </div>
-    </li>
-    <!-- Nav Item - Laporan pemesanan -->
-    {{-- <li class="nav-item">
-        <a class="nav-link" href="{{ url('laporanPemesanan') }}">
-    <i class="fas fa-fw fa-clipboard-check"></i>
-    <span><b>Laporan pemesanan</b></span></a>
-    </li> --}}
-    <!-- Nav Item - Laporan transaksi -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url('laporanTransaksi') }}">
-            <i class="fas fa-fw fa-credit-card"></i>
-            <span><b>Laporan transaksi</b></span></a>
-        {{-- </li>
-    <!-- Nav Item - Riwayat -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url('riwayat') }}">
-        <i class="fas fa-fw fa-clock"></i>
-        <span><b>Riwayat</b></span></a>
-    </li> --}}
 
-    @else
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
+    @else
 
+    <hr class="sidebar-divider d-none d-md-block">
     <!-- Heading -->
     <div class="sidebar-heading">
         Cafe SE2
     </div>
-    @endauth
 
-    <hr class="sidebar-divider d-none d-md-block">
 
     <!-- Nav Item - About -->
     <li class="nav-item">
@@ -183,6 +158,7 @@
             <span><b>Contact us</b></span></a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
+    @endauth
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">

@@ -47,7 +47,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('laporanTransaksi', [LaporanController::class, 'filter']);
 
     Route::resource('transaksi', TransaksiController::class);
+    Route::get('mulai-transaksi', [TransaksiController::class, 'transaksi']);
     Route::get('nota/{nofaktur}', [TransaksiController::class, 'faktur']);
+    Route::get('export/transaksi', [TransaksiController::class, 'exportData'])->name('export-transaksi');
+    Route::post('import/transaksi', [TransaksiController::class, 'importData'])->name('import-transaksi');
+    Route::get('cetakpdf/transaksi', [TransaksiController::class, 'cetakpdf'])->name('cetakpdf-transaksi');
 
     Route::resource('absensi', AbsensiController::class);
     Route::post('/update-waktu-keluar', [AbsensiController::class, 'updateWaktuKeluar'])->name('update.waktu.keluar');

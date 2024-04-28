@@ -38,6 +38,11 @@
                 <ul class="ordered-list">
                 </ul>
                 Total Bayar: <h2 id="total">0</h2>
+                <h6>Metode pembayaran:</h6>
+                <select name="metode_pembayaran" id="metode_pembayaran" class="form-control mb-3">
+                    <option value="Tunai" class="metode_pembayaran">Tunai</option>
+                    <option value="Debit" class="metode_pembayaran">Debit</option>
+                </select>
             </div>
             <button class="btn btn-primary" id="btn-bayar"><i class='fas fa-note'></i>
             </button>
