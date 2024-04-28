@@ -12,6 +12,7 @@ use Illuminate\Database\QueryException;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\MenuExport;
 use App\Imports\MenuImport;
+use App\Models\Stok;
 use Exception;
 use PDOException;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -41,27 +42,30 @@ class MenuController extends Controller
 
     public function store(StoreMenuRequest $request)
     {
-        try {
-            DB::beginTransaction();
-            if ($request->has('image')) {
-                $image = $request->file('image');
-                $filename = date('Y-m-d') . '-' . $image->getClientOriginalName();
-                $path = 'pictures-menu/' . $filename;
-                Storage::disk('public')->put($path, file_get_contents($image));
-                $data['image'] = $filename;
-            }
-            $data['nama_menu'] = $request->nama_menu;
-            $data['deskripsi'] = $request->deskripsi;
-            $data['jenis_id'] = $request->jenis_id;
-            $data['kategori_id'] = $request->kategori_id;
-            $data['harga'] = $request->harga;
-            Menu::create($data);
-            DB::commit();
-            return redirect('menu')->with('success', 'Menu berhasil ditambahkan!');
-        } catch (QueryException | Exception | PDOException $error) {
-            DB::rollBack();
-            $this->failResponse($error->getMessage(), $error->getCode());
+        // try {
+        DB::beginTransaction();
+        if ($request->has('image')) {
+            $image = $request->file('image');
+            $filename = date('Y-m-d') . '-' . $image->getClientOriginalName();
+            $path = 'pictures-menu/' . $filename;
+            Storage::disk('public')->put($path, file_get_contents($image));
+            $data['image'] = $filename;
         }
+        $stok = Stok::create(['jumlah' => 0]);
+        $data['nama_menu'] = $request->nama_menu;
+        $data['deskripsi'] = $request->deskripsi;
+        $data['jenis_id'] = $request->jenis_id;
+        $data['kategori_id'] = $request->kategori_id;
+        $data['harga'] = $request->harga;
+        $data['stok_id'] = $stok->id;
+
+        Menu::create($data);
+        DB::commit();
+        return redirect('menu')->with('success', 'Menu berhasil ditambahkan!');
+        // } catch (QueryException | Exception | PDOException $error) {
+        //     DB::rollBack();
+        //     $this->failResponse($error->getMessage(), $error->getCode());
+        // }
     }
 
     public function update(StoreMenuRequest $request, Menu $menu)
@@ -100,7 +104,13 @@ class MenuController extends Controller
             if ($menu->image) {
                 Storage::disk('public')->delete('pictures-menu/' . $menu->image);
             }
+            $idStok = $menu->stok_id;
+            $stok = Stok::find($idStok);
+
             $menu->delete();
+            if ($stok) {
+                $stok->delete();
+            }
             DB::commit();
             return redirect('menu')->with('success', 'Menu berhasil dihapus!');
         } catch (QueryException | Exception | PDOException $error) {

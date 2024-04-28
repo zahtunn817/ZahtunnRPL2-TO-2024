@@ -91,6 +91,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('cetakpdf/meja', [MejaController::class, 'cetakpdf'])->name('cetakpdf-meja');
 
         Route::resource('stok', StokController::class);
+        Route::patch('add/stok/{stok}', [StokController::class, 'add']);
         Route::get('export/stok', [StokController::class, 'exportData'])->name('export-stok');
         Route::post('import/stok', [StokController::class, 'importData'])->name('import-stok');
         Route::get('cetakpdf/stok', [StokController::class, 'cetakpdf'])->name('cetakpdf-stok');

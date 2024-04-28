@@ -26,7 +26,7 @@ class StokController extends Controller
     {
         try {
             $data['stok'] = DB::table('stok')
-                ->join('menu', 'stok.menu_id', '=', 'menu.id')
+                ->join('menu', 'menu.stok_id', '=', 'stok.id')
                 ->select('stok.*', 'menu.nama_menu',)->orderBy('created_at', 'DESC')->get();
             $menu = Menu::get();
             return view('Stok.index', [
@@ -52,6 +52,19 @@ class StokController extends Controller
     }
 
     public function update(StoreStokRequest $request, Stok $stok)
+    {
+        try {
+            DB::beginTransaction();
+            $stok->update($request->all());
+            DB::commit();
+            return redirect('stok')->with('success', 'Stok berhasil diupdate!');
+        } catch (QueryException | Exception | PDOException $error) {
+            DB::rollBack();
+            $this->failResponse($error->getMessage(), $error->getCode());
+        }
+    }
+
+    public function add(StoreStokRequest $request, Stok $stok)
     {
         try {
             DB::beginTransaction();

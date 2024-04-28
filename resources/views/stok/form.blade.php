@@ -10,15 +10,6 @@
             <div class="modal-body">
                 <form method="post" action="stok">
                     @csrf
-
-                    <div class="form-group row">
-                        <label for="menu_id" class="col-sm-4 col-form-label">Nama menu</label>
-                        <select class="form-control col-sm-8" name="menu_id" id="menu_id">
-                            @foreach ($menu as $item)
-                            <option value="{{ $item->id }}">{{ $item->nama_menu  }}</option>
-                            @endforeach uu
-                        </select>
-                    </div>
                     <div id="method"></div>
                     <div class="form-group row">
                         <label for="jumlah" class="col-sm-4 col-form-label">Stok</label>

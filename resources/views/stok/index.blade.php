@@ -9,12 +9,7 @@
     </div>
     <div class="card-body">
         @include('templates.alert')
-        <a href="#" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#stok">
-            <span class="icon text-white-50">
-                <i class="fas fa-plus"></i>
-            </span>
-            <span class="text">Tambah stok</span>
-        </a>
+
         <a href="#" class="btn btn-danger btn-icon-split mb-3" data-toggle="modal" data-target="#stokExport">
             <span class="icon text-white-50">
                 <i class="fas fa-file-export"></i>
@@ -59,22 +54,20 @@
     $('#stok').on('show.bs.modal', function(e) {
         const btn = $(e.relatedTarget)
         const mode = btn.data('mode')
-        const menu_id = btn.data('menu_id')
+        const nama_menu = btn.data('nama_menu')
         const jumlah = btn.data('jumlah')
         const id = btn.data('id')
         const modal = $(this)
         if (mode === 'edit') {
-            modal.find('.modal-title').text('Edit stok')
-            modal.find('#menu_id').val(menu_id)
+            modal.find('.modal-title').text('Edit stok ' + nama_menu)
             modal.find('#jumlah').val(jumlah)
             modal.find('.modal-body form').attr('action', "{{ url('stok') }}/" + id)
             modal.find('#method').html('@method("PATCH")')
         } else {
-            modal.find('.modal-title').text('Input stok')
-            modal.find('#menu_id').val('')
+            modal.find('.modal-title').text('Tambah stok ' + nama_menu)
             modal.find('#jumlah').val('')
-            modal.find('.modal-body form').attr('action', "{{ url('stok') }}")
-            modal.find('#method').html('')
+            modal.find('.modal-body form').attr('action', "{{ url('add/stok') }}/" + id)
+            modal.find('#method').html('@method("PATCH")')
         }
     })
 </script>

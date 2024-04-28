@@ -18,27 +18,19 @@
         </tfoot>
         <tbody>
             @foreach ($stok as $item)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->nama_menu }}</td>
-                    <td>{{ $item->jumlah }}</td>
-                    <td>
-                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#stok"
-                            data-mode="edit" data-id="{{ $item->id }}"
-                            data-menu_id="{{ $item->menu_id }}" data-jumlah="{{ $item->jumlah }}">
-                            <i class='fas fa-pen'></i>
-                        </button>
-                        <form action="{{ route('stok.destroy', $item->id) }}" method="POST"
-                            class="d-inline form-delete" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger delete-data"
-                                data-nama_menu="{{ $item->nama_menu }}">
-                                <i class='fas fa-trash'></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $item->nama_menu }}</td>
+                <td>{{ $item->jumlah }}</td>
+                <td>
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#stok" data-mode="edit" data-id="{{ $item->id }}" data-nama_menu="{{ $item->nama_menu }}" data-jumlah="{{ $item->jumlah }}">
+                        <i class='fas fa-pen'></i>
+                    </button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#stok" data-id="{{ $item->id }}" data-mode="tambah" data-id="{{ $item->id }}" data-nama_menu="{{ $item->nama_menu }}" data-jumlah="{{ $item->jumlah }}">
+                        <i class='fas fa-plus'></i>
+                    </button>
+                </td>
+            </tr>
             @endforeach
         </tbody>
     </table>
