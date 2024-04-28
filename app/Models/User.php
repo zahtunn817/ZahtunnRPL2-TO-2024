@@ -53,4 +53,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Transaksi::class, 'user_id', 'id');
     }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isKasir()
+    {
+        return $this->role === 'kasir';
+    }
 }

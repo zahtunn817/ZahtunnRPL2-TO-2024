@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'nama' => 'Atsuhiro Rei',
-                'email' => 'atrurei@gmail.com',
+                'email' => 'atsurei@gmail.com',
                 'password' => 'password',
                 'jk' => 'L',
                 'tgl_lahir' => '2007-01-06',
