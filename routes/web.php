@@ -67,6 +67,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::group(['middleware' => ['cekUserLogin:admin']], function () {
         Route::get('dashboard', [DashboardController::class, 'index']);
+        Route::post('dashboard', [DashboardController::class, 'index']);
         Route::get('laporanTransaksi', [LaporanController::class, 'index']);
         Route::post('laporanTransaksi', [LaporanController::class, 'filter']);
 

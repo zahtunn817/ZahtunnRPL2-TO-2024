@@ -13,50 +13,70 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-
+        $tgl_awal = $request->input('tgl_awal');
+        $tgl_akhir = $request->input('tgl_akhir');
+        $today = Carbon::today();
         $menu = Menu::get();
         $stok = Stok::get();
         $pelanggan = Pelanggan::get();
         $transaksi = Transaksi::get();
         $detailtransaksi = DetailTransaksi::get();
-        $today = Carbon::today();
 
+        if ($request->has('tgl_awal') && $request->has('tgl_awal')) {
+            $date['tgl_awal'] = $tgl_awal;
+            $date['tgl_akhir'] = $tgl_akhir;
 
+            $data['pendapatan'] = DB::table('transaksi')
+                ->whereBetween('tanggal_transaksi', [$tgl_awal, $tgl_akhir])
+                ->sum('total_harga');
 
-        $data['count_menu'] = $menu->count();
+            $data['count_transaksi'] = DB::table('transaksi')
+                ->whereBetween('tanggal_transaksi', [$tgl_awal, $tgl_akhir])
+                ->count();
 
-        $data['menu_teratas'] = DetailTransaksi::with('menu')
-            ->select('menu_id', DB::raw('COUNT(*) as total_terjual'))
-            ->groupBy('menu_id')
-            ->orderBy('total_terjual', 'desc')
-            ->limit(5)->get();
+            $data['menu_teratas'] = DetailTransaksi::with('menu')
+                ->whereHas('transaksi', function ($query) use ($tgl_awal, $tgl_akhir) {
+                    $query->whereBetween('tanggal_transaksi', [$tgl_awal, $tgl_akhir]);
+                })
+                ->select('menu_id', DB::raw('COUNT(*) as total_terjual'))
+                ->groupBy('menu_id')
+                ->orderBy('total_terjual', 'desc')
+                ->limit(5)
+                ->get();
+        } else {
+            $date = $today;
 
-        $data['count_pelanggan'] = $pelanggan->count();
+            $data['pendapatan'] = DB::table('transaksi')
+                ->whereDate('tanggal_transaksi', $today)
+                ->sum('total_harga');
 
-        $data['count_transaksi'] = $transaksi->count();
+            $data['count_transaksi'] = DB::table('transaksi')
+                ->whereDate('tanggal_transaksi', $today)
+                ->count();
 
-        $data['pendapatan'] = $transaksi->sum('total_harga');
+            $data['menu_teratas'] = DetailTransaksi::with('menu')
+                ->whereHas('transaksi', function ($query) use ($today) {
+                    $query->whereDate('tanggal_transaksi', $today);
+                })
+                ->select('menu_id', DB::raw('COUNT(*) as total_terjual'))
+                ->groupBy('menu_id')
+                ->orderBy('total_terjual', 'desc')
+                ->limit(5)
+                ->get();
+        };
 
-        $data['pendapatan_today'] = DB::table('transaksi')
-            ->whereDate('tanggal_transaksi', $today)
-            ->sum('total_harga');
-
-        $data['count_transaksi_today'] = DB::table('transaksi')
-            ->whereDate('tanggal_transaksi', $today)
-            ->count();
+        // dd($data);
 
         $data['latest_transaksi'] = Transaksi::with('pelanggan')->orderBy('tanggal_transaksi', 'desc')->limit(3)->get();
-
+        $data['count_pelanggan'] = $pelanggan->count();
         $data['pelanggan'] = Pelanggan::limit(10)->orderBy('created_at', 'desc')->get();
-
         $data['lowest_stok'] = Stok::with('menu')
             ->join('menu', 'menu.stok_id', '=', 'stok.id')
             ->orderBy('stok.jumlah', 'asc')
             ->limit(3)
             ->get();
-
-        return view('pages.dashboard', ['page' => 'dashboard', 'section' => 'Dashboard'])->with($data);
+        return view('pages.dashboard', ['page' => 'dashboard', 'section' => 'Dashboard'], compact('date'))->with($data);
     }
 }

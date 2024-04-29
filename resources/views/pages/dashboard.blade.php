@@ -8,68 +8,17 @@
         <h1 class="h3 mb-0 text-gray-800">Hi, {{auth()->user()->nama}}</h1>
         <small>Selamat datang di Kasir Cafe SE2</small>
     </div>
-    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-toggle="modal" data-target="#filter"><i class="fas fa-filter fa-sm text-white-50"></i>
+        @if(is_array($date))
+        {{ \Carbon\Carbon::parse($date['tgl_awal'])->format('d M Y') }} - {{ \Carbon\Carbon::parse($date['tgl_akhir'])->format('d M Y') }}
+        @else
+        {{ $date->format('d M Y') }}
+        @endif
+    </a>
 </div>
 
 <!-- Content Row -->
 <div class="row">
-    <!-- Jumlah Pendapatan -->
-    <div class="col-xl-4 col-md-6 mb-4">
-        <div class="card border-left-warning shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pendapatan
-                        </div>
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Rp. {{ number_format($pendapatan,0,",",".") }}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Jumlah Pendapatan hari ini -->
-    <div class="col-xl-4 col-md-6 mb-4">
-        <div class="card border-left-danger shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                            Pendapatan hari ini</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">Rp. {{ number_format($pendapatan_today,0,",",".") }}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Jumlah Menu -->
-    <div class="col-xl-4 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Jumlah menu</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $count_menu }}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-utensils fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Jumlah Transaksi -->
     <div class="col-xl-4 col-md-6 mb-4">
         <div class="card border-left-info shadow h-100 py-2">
@@ -91,19 +40,22 @@
             </div>
         </div>
     </div>
-
-    <!-- Jumlah Transaksi (hari ini) -->
+    <!-- Jumlah Pendapatan -->
     <div class="col-xl-4 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
+        <div class="card border-left-warning shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Jumlah transaksi hari ini</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $count_transaksi_today }}</div>
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pendapatan
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Rp. {{ number_format($pendapatan,0,",",".") }}</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
@@ -218,6 +170,32 @@
     </div>
 </div>
 
+<div class="modal fade" id="filter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/dashboard" method="post">
+                    @csrf
+                    <div class="form-group row">
+                        <input class="form-control col-md-4" type="date" name="tgl_awal" id="tglawal">
+                        <h6 class="mt-2 col-md-2"><b>s/d</b></h6>
+                        <input class="form-control col-md-4" type="date" name="tgl_akhir" id="tglakhir">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                <button type="submit" class="mr-3 btn btn-primary"><i class='fas fa-search'></i></button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 @push('script')
 @endpush
