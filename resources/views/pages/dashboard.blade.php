@@ -172,6 +172,43 @@
     </div>
 </div>
 
+<!-- Content Row -->
+<div class="row">
+
+    <div class="col-xl-6 col-lg-7">
+
+        <!-- Area Chart -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+            </div>
+            <div class="card-body">
+                <ul>
+                    @foreach($latest_transaksi as $item)
+                    <li>
+                        {{ $item->tanggal_transaksi }}
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top 5 penjualan -->
+    <div class="col-xl-6 col-lg-5">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Top 5 penjualan</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 @push('script')
 @endpush

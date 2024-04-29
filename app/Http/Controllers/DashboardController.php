@@ -44,6 +44,8 @@ class DashboardController extends Controller
             ->whereDate('tanggal_transaksi', $today)
             ->count();
 
+        $data['latest_transaksi'] = DB::table('transaksi')->orderBy('tanggal_transaksi', 'desc')->limit(3)->get();
+
 
         $data['pelanggan'] = Pelanggan::limit(10)->orderBy('created_at', 'desc')->get();
 
