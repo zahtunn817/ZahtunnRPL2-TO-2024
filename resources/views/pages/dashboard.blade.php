@@ -159,14 +159,14 @@
             </div>
             <!-- Card Body -->
             <div class="card-body">
-                <table>
+                <ul>
                     @foreach($menu_teratas as $item)
-                    <tr>
-                        <td><img class="img rounded-circle my-2 mr-3" style="max-width: 3rem; height: 3rem; display: block; object-fit: cover;" src="{{ empty($item->menu->image)? asset('img/no-image.png') : asset('storage/pictures-menu/'.$item->menu->image)}}" alt="Tidak ada gambar"></td>
-                        <td class="h5 mb-0 font-weight-bold text-gray-800">{{ $item->menu->nama_menu }} <br><small>{{ $item->total_terjual }} terjual</small></td>
-                    </tr>
+                    <li class="row mt-2">
+                        <img class="img rounded-circle mr-3" style="max-width: 3rem; height: 3rem; display: block; object-fit: cover;" src="{{ empty($item->menu->image)? asset('img/no-image.png') : asset('storage/pictures-menu/'.$item->menu->image)}}" alt="Tidak ada gambar">
+                        <h5 class="mb-0 font-weight-bold text-gray-800">{{ $item->menu->nama_menu }} <br><small>{{ $item->total_terjual }} terjual</small></h5>
+                    </li>
                     @endforeach
-                </table>
+                </ul>
             </div>
         </div>
     </div>
@@ -175,35 +175,44 @@
 <!-- Content Row -->
 <div class="row">
 
-    <div class="col-xl-6 col-lg-7">
 
-        <!-- Area Chart -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
-            </div>
-            <div class="card-body">
-                <ul>
-                    @foreach($latest_transaksi as $item)
-                    <li>
-                        {{ $item->tanggal_transaksi }}
-                    </li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
-    </div>
 
     <!-- Top 5 penjualan -->
     <div class="col-xl-6 col-lg-5">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Top 5 penjualan</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Transaksi Terbaru</h6>
             </div>
             <!-- Card Body -->
             <div class="card-body">
+                <ul>
+                    @foreach($latest_transaksi as $item)
+                    <li class="row mt-2">
+                        <div><img class="img rounded-circle mr-3" style="max-width: 3rem; height: 3rem; display: block; object-fit: cover;" src="{{ empty($item->menu->image)? asset('img/no-image.png') : asset('storage/pictures-menu/'.$item->menu->image)}}" alt="Tidak ada gambar"></div>
+                        <h5 class="mb-0 font-weight-bold text-gray-800">{{ $item->pelanggan->nama_pelanggan }} <br><small>{{ $item->id }} | Total: <span class="font-weight-bold">{{ $item->total_harga }}</span></small></h5>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6 col-lg-7">
 
+        <!-- Area Chart -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Stok Terendah</h6>
+            </div>
+            <div class="card-body">
+                <ul>
+                    @foreach($lowest_stok as $item)
+                    <li class="row mt-2">
+                        <img class="img rounded-circle mr-3" style="max-width: 3rem; height: 3rem; display: block; object-fit: cover;" src="{{ empty($item->menu->image)? asset('img/no-image.png') : asset('storage/pictures-menu/'.$item->menu->image)}}" alt="Tidak ada gambar"></h5>
+                        <h5 class="mb-0 font-weight-bold text-gray-800">{{ $item->nama_menu }} <br><small>{{ $item->jumlah }} tersisa</small></h5>
+                    </li>
+                    @endforeach
+                </ul>
             </div>
         </div>
     </div>
