@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailTransaksi;
 use App\Models\Menu;
 use App\Models\Pelanggan;
 use App\Models\Transaksi;
@@ -15,6 +16,14 @@ class DashboardController extends Controller
     {
         $menu = Menu::get();
         $data['count_menu'] = $menu->count();
+
+        $data['menu_teratas'] = DetailTransaksi::with('menu')
+            ->select('menu_id', DB::raw('COUNT(*) as total_terjual'))
+            ->groupBy('menu_id')
+            ->orderBy('total_terjual', 'desc')
+            ->limit(5)->get();
+
+        // dd($data);
 
         $pelanggan = Pelanggan::get();
         $data['count_pelanggan'] = $pelanggan->count();
@@ -35,7 +44,9 @@ class DashboardController extends Controller
             ->whereDate('tanggal_transaksi', $today)
             ->count();
 
+
         $data['pelanggan'] = Pelanggan::limit(10)->orderBy('created_at', 'desc')->get();
+
 
         return view('pages.dashboard', ['page' => 'dashboard', 'section' => 'Dashboard'])->with($data);
     }
