@@ -15,24 +15,24 @@ class JenisSeeder extends Seeder
     {
         $jenis = [
             [
-                'nama_jenis' => 'Roti',
+                'nama_jenis' => 'Pastry',
                 'kategori_id' => '1'
             ],
             [
-                'nama_jenis' => 'Nasi',
+                'nama_jenis' => 'Brunch',
                 'kategori_id' => '1'
             ],
             [
-                'nama_jenis' => 'Soup',
+                'nama_jenis' => 'Desserts',
                 'kategori_id' => '1'
             ],
             [
-                'nama_jenis' => 'Soft drink',
+                'nama_jenis' => 'Beverage',
                 'kategori_id' => '2'
             ],
             [
-                'nama_jenis' => 'Susu',
-                'kategori_id' => '2'
+                'nama_jenis' => 'Breakfast',
+                'kategori_id' => '1'
             ]
         ];
         foreach ($jenis as $key => $value) {

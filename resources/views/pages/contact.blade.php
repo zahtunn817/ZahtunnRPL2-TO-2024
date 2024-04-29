@@ -22,6 +22,8 @@
     <div class="col-lg-6">
         <img class="mb-4 img-fluid" src="{{ asset('img/kantor.jpg') }}" alt="Gambar kantor gwej">
         <p>Jl. Siliwangi No.41, Sawah Gede, Kec. Cianjur, Kabupaten Cianjur, Jawa Barat 43212</p>
+        <p>Email: zahratunn817@gmail.com</p>
+        <p>Telepon: 0895372166600</p>
     </div>
 
     <div class="col-lg-6">
@@ -37,7 +39,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<!-- <div class="row">
     <div class="col-lg-12">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -70,7 +72,7 @@
     </div>
 
 
-</div>
+</div> -->
 @endsection
 @push('script')
 @endpush

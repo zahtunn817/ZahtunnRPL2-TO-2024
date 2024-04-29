@@ -15,19 +15,49 @@ class StokSeeder extends Seeder
     {
         $stok = [
             [
+                'jumlah' => '0'
+            ],
+            [
                 'jumlah' => '10'
             ],
             [
                 'jumlah' => '20'
             ],
             [
-                'jumlah' => '50'
+                'jumlah' => '8'
             ],
             [
-                'jumlah' => '50'
+                'jumlah' => '13'
             ],
             [
-                'jumlah' => '50'
+                'jumlah' => '0'
+            ],
+            [
+                'jumlah' => '10'
+            ],
+            [
+                'jumlah' => '20'
+            ],
+            [
+                'jumlah' => '8'
+            ],
+            [
+                'jumlah' => '13'
+            ],
+            [
+                'jumlah' => '0'
+            ],
+            [
+                'jumlah' => '10'
+            ],
+            [
+                'jumlah' => '20'
+            ],
+            [
+                'jumlah' => '8'
+            ],
+            [
+                'jumlah' => '13'
             ]
         ];
         foreach ($stok as $key => $value) {

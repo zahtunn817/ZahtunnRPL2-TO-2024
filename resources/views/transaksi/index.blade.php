@@ -43,9 +43,9 @@
                     <option value="Tunai" class="metode_pembayaran">Tunai</option>
                     <option value="Debit" class="metode_pembayaran">Debit</option>
                 </select>
+                <button class="btn btn-primary" id="btn-bayar">Bayar
+                </button>
             </div>
-            <button class="btn btn-primary" id="btn-bayar"><i class='fas fa-note'></i>
-            </button>
         </div>
     </div>
 </div>
