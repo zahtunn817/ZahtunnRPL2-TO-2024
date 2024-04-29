@@ -68,6 +68,7 @@ class DashboardController extends Controller
         };
 
         // dd($data);
+        $transaksi = Transaksi::whereBetween('tanggal_transaksi', [$tgl_awal, $tgl_akhir])->get();
 
         $data['latest_transaksi'] = Transaksi::with('pelanggan')->orderBy('tanggal_transaksi', 'desc')->limit(3)->get();
         $data['count_pelanggan'] = $pelanggan->count();
@@ -77,6 +78,29 @@ class DashboardController extends Controller
             ->orderBy('stok.jumlah', 'asc')
             ->limit(3)
             ->get();
-        return view('pages.dashboard', ['page' => 'dashboard', 'section' => 'Dashboard'], compact('date'))->with($data);
+
+        // 1. Ambil tahun saat ini
+        $tahun_ini = Carbon::now()->year;
+
+        // 2. Ambil data transaksi untuk tahun ini
+        $transaksi_tahun_ini = Transaksi::whereYear('tanggal_transaksi', $tahun_ini)->get();
+
+        // 3. Hitung pendapatan per bulan
+        $pendapatan_per_bulan = [];
+        foreach ($transaksi_tahun_ini as $trx) {
+            $bulan = Carbon::parse($trx->tanggal_transaksi)->format('M');
+            if (!isset($pendapatan_per_bulan[$bulan])) {
+                $pendapatan_per_bulan[$bulan] = 0;
+            }
+            $pendapatan_per_bulan[$bulan] += $trx->total_harga;
+        }
+
+        // Format pendapatan sebagai mata uang Rupiah
+        $data_pendapatan = array_values($pendapatan_per_bulan); // Nilai pendapatan
+        $bulan_labels = array_keys($pendapatan_per_bulan); // Label bulan
+
+
+        // dd($data_pendapatan);
+        return view('pages.dashboard', ['page' => 'dashboard', 'section' => 'Dashboard'], compact('date', 'data_pendapatan', 'bulan_labels'))->with($data);
     }
 }

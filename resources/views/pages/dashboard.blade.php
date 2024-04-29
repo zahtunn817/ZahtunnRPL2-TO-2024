@@ -8,7 +8,7 @@
         <h1 class="h3 mb-0 text-gray-800">Hi, {{auth()->user()->nama}}</h1>
         <small>Selamat datang di Kasir Cafe SE2</small>
     </div>
-    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-toggle="modal" data-target="#filter"><i class="fas fa-filter fa-sm text-white-50"></i>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" data-toggle="modal" data-target="#filter"><i class="fas fa-calendar fa-sm text-white-50"></i>
         @if(is_array($date))
         {{ \Carbon\Carbon::parse($date['tgl_awal'])->format('d M Y') }} - {{ \Carbon\Carbon::parse($date['tgl_akhir'])->format('d M Y') }}
         @else
@@ -89,15 +89,12 @@
         <!-- Area Chart -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Pendapatan tahun ini (perbulan)</h6>
             </div>
             <div class="card-body">
                 <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
+                    <canvas id="grafikPendapatan"></canvas>
                 </div>
-                <hr>
-                Styling for the area chart can be found in the
-                <code>/js/demo/chart-area-demo.js</code> file.
             </div>
         </div>
     </div>
@@ -142,7 +139,7 @@
                     @foreach($latest_transaksi as $item)
                     <li class="row mt-2">
                         <div><img class="img rounded-circle mr-3" style="max-width: 3rem; height: 3rem; display: block; object-fit: cover;" src="{{ empty($item->menu->image)? asset('img/no-image.png') : asset('storage/pictures-menu/'.$item->menu->image)}}" alt="Tidak ada gambar"></div>
-                        <h5 class="mb-0 font-weight-bold text-gray-800">{{ $item->pelanggan->nama_pelanggan }} <br><small>{{ $item->id }} | Total: <span class="font-weight-bold">{{ $item->total_harga }}</span></small></h5>
+                        <h5 class="mb-0 font-weight-bold text-gray-800">{{ $item->pelanggan->nama_pelanggan }} <br><small>{{ $item->id }} | Total: <span class="font-weight-bold">Rp. {{ number_format($item->total_harga,0,",",".") }}</span></small></h5>
                     </li>
                     @endforeach
                 </ul>
@@ -174,7 +171,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Filter tanggal</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -189,7 +186,7 @@
                     </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                <a href="{{ url('dashboard') }}" class="btn btn-danger">Reset</a>
                 <button type="submit" class="mr-3 btn btn-primary"><i class='fas fa-search'></i></button>
             </div>
             </form>
@@ -198,4 +195,97 @@
 </div>
 @endsection
 @push('script')
+<script>
+    var ctx = document.getElementById("grafikPendapatan");
+    var myLineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: <?= json_encode($bulan_labels) ?>,
+            datasets: [{
+                label: "Pendapatan",
+                lineTension: 0.3,
+                backgroundColor: "rgba(78, 115, 223, 0.05)",
+                borderColor: "rgba(78, 115, 223, 1)",
+                pointRadius: 3,
+                pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                pointBorderColor: "rgba(78, 115, 223, 1)",
+                pointHoverRadius: 3,
+                pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                pointHitRadius: 10,
+                pointBorderWidth: 2,
+                data: <?= json_encode($data_pendapatan) ?>,
+            }],
+        },
+        options: {
+            maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 25,
+                    top: 25,
+                    bottom: 0
+                }
+            },
+            scales: {
+                xAxes: [{
+                    time: {
+                        unit: 'date'
+                    },
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        maxTicksLimit: 7
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        maxTicksLimit: 5,
+                        padding: 10,
+                        // Include a dollar sign in the ticks
+                        callback: function(value, index, values) {
+                            return 'Rp ' + value.toLocaleString('id-ID');
+                        }
+                    },
+                    gridLines: {
+                        color: "rgb(234, 236, 244)",
+                        zeroLineColor: "rgb(234, 236, 244)",
+                        drawBorder: false,
+                        borderDash: [2],
+                        zeroLineBorderDash: [2]
+                    }
+                }],
+            },
+            legend: {
+                display: false
+            },
+            tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                titleMarginBottom: 10,
+                titleFontColor: '#6e707e',
+                titleFontSize: 14,
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                intersect: false,
+                mode: 'index',
+                caretPadding: 10,
+                callbacks: {
+                    label: function(tooltipItem, chart) {
+                        var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                        var value = tooltipItem.yLabel;
+                        // Ubah nilai menjadi format rupiah
+                        value = formatRupiah(value, 'Rp ');
+                        return datasetLabel + ': ' + value;
+                    }
+                }
+            }
+        }
+    });
+</script>
 @endpush
