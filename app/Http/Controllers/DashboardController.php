@@ -22,7 +22,14 @@ class DashboardController extends Controller
         $transaksi = Transaksi::get();
         $data['count_transaksi'] = $transaksi->count();
 
+        $data['pendapatan'] = $transaksi->sum('total_harga');
+
         $today = Carbon::today();
+
+        $data['pendapatan_today'] = DB::table('transaksi')
+            ->whereDate('tanggal_transaksi', $today)
+            ->sum('total_harga');
+
 
         $data['count_transaksi_today'] = DB::table('transaksi')
             ->whereDate('tanggal_transaksi', $today)

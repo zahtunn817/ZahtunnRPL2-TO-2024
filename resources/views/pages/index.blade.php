@@ -16,6 +16,4 @@
     - Export laporan (date)
     - Export laporan (all)
     - JS graph
-    - Contact us
-    - Tentang aplikasi
  -->

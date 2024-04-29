@@ -35,7 +35,7 @@
 
                 <td><img class="img-fluid" style="max-width: 70px; height: auto; display: block" src="{{ asset('storage/pictures-menu/'.$item->image) }}" alt="Tidak ada gambar"></td>
 
-                <td>Rp. {{ $item->harga }}</td>
+                <td>Rp. {{ number_format($item->harga,0,",",".") }}</td>
                 <td>
                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#menu" data-mode="edit" data-id="{{ $item->id }}" data-nama_menu="{{ $item->nama_menu }}" data-harga="{{ $item->harga }}" data-deskripsi="{{ $item->deskripsi }}" data-jenis_id="{{ $item->jenis->id }}" data-image="{{ $item->image }}">
                         <i class='fas fa-pen'></i>

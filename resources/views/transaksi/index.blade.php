@@ -10,7 +10,7 @@
             @foreach ($menu as $item)
             <li class="card text-center mr-2 mb-2" style="width: 9rem; list-style-type: none;" data-harga="{{ $item->harga }}" data-id="{{ $item->id }}">
                 <img src="{{ empty($item->image)? asset('img/no-image.png') : asset('storage/pictures-menu/'.$item->image)}}" class="img-fluid" style="max-height: 50%; object-fit: cover;" alt="...">
-                <p class="card-text my-2 font-weight-bold text-primary">{{ $item->nama_menu }}</p>
+                <p class=" my-2 font-weight-bold text-primary">{{ $item->nama_menu }} <br><small class="text-secondary my-2">Rp. {{ number_format($item->harga,0,",",".") }}</small> | <small class="text-secondary my-2">Stok: {{ optional($item->stok)->jumlah }}</small></p>
             </li>
             @endforeach
         </ul>
