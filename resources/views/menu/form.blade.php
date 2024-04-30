@@ -30,7 +30,7 @@
                     </div>
                     <div class="form-group row">
                         <label for="image" class="col-sm-4 col-form-label">Foto <sub>(opsional)</sub></label>
-                        <input type="file" class="form-control col-sm-8" id="image" name="image" placeholder="Gambar" onchange="previewImage()">
+                        <input type="file" class="form-control col-sm-8" id="image" name="image" placeholder="Gambar" onchange="previewImage()" accept=".png, .jpeg, .jpg">
                     </div>
                     <img class="img-preview img-fluid mb-3" style="max-height: 200px">
                     <div class="form-group row">

@@ -21,12 +21,6 @@
             <i class="fas fa-fw fa-credit-card"></i>
             <span><b>Transaksi</b></span></a>
     </li>
-    <!-- Nav Item - Laporan transaksi -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url('laporanTransaksi') }}">
-            <i class="fas fa-fw fa-book"></i>
-            <span><b>Laporan transaksi</b></span></a>
-    </li>
     <!-- Nav Item - Riwayat transaksi -->
     <li class="nav-item">
         <a class="nav-link" href="{{ url('transaksi') }}">

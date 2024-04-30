@@ -14,11 +14,11 @@ class cekUserLogin
         $user = Auth::user();
 
         if (!Auth::check()) {
-            return redirect('login');
+            return redirect('/');
         }
         if ($user->roles == $rules) {
             return $next($request);
         }
-        return redirect('login')->with('error', 'You have no accsess');
+        return redirect('/')->with('error', 'You have no accsess');
     }
 }
