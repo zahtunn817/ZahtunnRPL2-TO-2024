@@ -38,11 +38,15 @@ class StokController extends Controller
         }
     }
 
-    public function store(StoreStokRequest $request)
+    public function add(StoreStokRequest $request, Stok $stok)
     {
         try {
             DB::beginTransaction();
-            Stok::create($request->all());
+
+            $stok->jumlah += $request->jumlah;
+            $stok->update(['jumlah' => $stok->jumlah]);
+
+
             DB::commit();
             return redirect('stok')->with('success', 'Stok berhasil ditambahkan!');
         } catch (QueryException | Exception | PDOException $error) {
@@ -52,19 +56,6 @@ class StokController extends Controller
     }
 
     public function update(StoreStokRequest $request, Stok $stok)
-    {
-        try {
-            DB::beginTransaction();
-            $stok->update($request->all());
-            DB::commit();
-            return redirect('stok')->with('success', 'Stok berhasil diupdate!');
-        } catch (QueryException | Exception | PDOException $error) {
-            DB::rollBack();
-            $this->failResponse($error->getMessage(), $error->getCode());
-        }
-    }
-
-    public function add(StoreStokRequest $request, Stok $stok)
     {
         try {
             DB::beginTransaction();

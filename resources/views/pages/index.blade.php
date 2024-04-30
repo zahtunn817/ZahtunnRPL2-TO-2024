@@ -10,7 +10,6 @@
 
 <!-- TODO! -->
 <!-- 
-    - Add stok
     - Stok menu 0
     - Nota
     - Export laporan (date)

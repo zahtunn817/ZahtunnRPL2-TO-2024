@@ -74,6 +74,22 @@ class TransaksiController extends Controller
             }
 
             foreach ($request->orderedList as $detail) {
+                $menu = Menu::find($detail['id']);
+                if (!$menu) {
+                    DB::rollBack();
+                    return response()->json(['status' => false, 'message' => 'Transaksi gagal', 'error' => 'Menu tidak ditemukan']);
+                }
+
+                // Pastikan stok cukup untuk memenuhi pesanan
+                if ($menu->stok->jumlah < $detail['qty']) {
+                    DB::rollBack();
+                    return response()->json(['status' => false, 'message' => 'Transaksi gagal', 'error' => 'Stok tidak mencukupi untuk menu: ' . $menu->nama_menu]);
+                }
+
+                // Kurangi stok menu
+                $menu->stok->decrement('jumlah', $detail['qty']);
+
+                // Simpan detail transaksi
                 $insertDetailTransaksi = DetailTransaksi::create([
                     'transaksi_id' => $inserttransaksi->id,
                     'menu_id' => $detail['id'],
@@ -94,6 +110,7 @@ class TransaksiController extends Controller
             return response()->json(['status' => false, 'message' => 'Transaksi gagal', 'error' => $e->getMessage()]);
         }
     }
+
 
 
 

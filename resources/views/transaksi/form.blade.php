@@ -23,15 +23,19 @@
                     </div>
                     <div class="row col-sm-12">
                         <div class="form-group col-sm-6">
+                            <h6 for="kasir" class="text-primary font-weight-bold">Kasir</h6>
+                            <h6 class="user_id">kasir</h6>
+                        </div>
+                        <div class="form-group col-sm-6">
                             <h6 for="pelanggan" class="text-primary font-weight-bold">Pelanggan</h6>
                             <h6 class="pelanggan_id">pelanggan</h6>
                         </div>
+                    </div>
+                    <div class="row col-sm-12">
                         <div class="form-group col-sm-6">
                             <h6 class="text-primary font-weight-bold">Total</h6>
                             <h6 class="total_harga"></h6>
                         </div>
-                    </div>
-                    <div class="row col-sm-12">
                         <div class="form-group col-sm-6">
                             <h6 class="text-primary font-weight-bold">Payment</h6>
                             <h6 class="metode_pembayaran"></h6>

@@ -20,4 +20,9 @@ class Transaksi extends Model
     {
         return $this->belongsTo(Pelanggan::class, 'pelanggan_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

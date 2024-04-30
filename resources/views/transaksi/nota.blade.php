@@ -35,8 +35,10 @@
         <h2 style="text-align: center;">Cafe SE2</h2>
         <h5>Jl. Siliwangi No.41, Sawah Gede, Kec. Cianjur, Kabupaten Cianjur, Jawa Barat 43212</h5>
         <hr>
-        <h5>No. Faktur : {{ $transaksi->id }}</h5>
-        <h5>{{ $transaksi->tanggal_transaksi }}</h5>
+        <h5>{{ $transaksi->tanggal_transaksi }}
+            <br>No. Faktur : {{ $transaksi->id }}
+            <br>Kasir : {{ $transaksi->user->nama }}
+        </h5>
         <table border="0">
             <thead>
                 <tr>
@@ -74,6 +76,9 @@
             </tbody>
         </table>
         <h5 style="text-align: center;">Terimakasih banyak</h5>
+        <h5 style="text-align: center;">Contact us:<br>zahratunn817@gmail.com
+            <br>0895372166600
+        </h5>
 
     </div>
 </body>

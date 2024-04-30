@@ -16,7 +16,7 @@
             </span>
             <span class="text">Tambah transaksi</span>
         </a>
-        <a href="#" class="btn btn-danger btn-icon-split mb-3" data-toggle="modal" data-target="#transaksiExport">
+        <!-- <a href="#" class="btn btn-danger btn-icon-split mb-3" data-toggle="modal" data-target="#transaksiExport">
             <span class="icon text-white-50">
                 <i class="fas fa-file-export"></i>
             </span>
@@ -27,7 +27,7 @@
                 <i class="fas fa-file-import"></i>
             </span>
             <span class="text">Import</span>
-        </a>
+        </a> -->
         @include('transaksi.data')
     </div>
 </div>
@@ -66,15 +66,16 @@
         const metode_pembayaran = btn.data('metode_pembayaran')
         const keterangan = btn.data('keterangan')
         const pelanggan_id = btn.data('pelanggan_id')
+        const user_id = btn.data('user_id')
         const modal = $(this)
         if (mode === 'edit') {
             modal.find('.modal-title').text('Tambah keterangan')
             modal.find('.tanggal_transaksi').text(tanggal_transaksi)
             modal.find('.id').text(id)
-            modal.find('.tanggal_transaksi').text(tanggal_transaksi)
             modal.find('.total_harga').text(total_harga)
             modal.find('.metode_pembayaran').text(metode_pembayaran)
             modal.find('.pelanggan_id').text(pelanggan_id)
+            modal.find('.user_id').text(user_id)
             modal.find('#keterangan').val(keterangan)
             modal.find('.modal-body form').attr('action', "{{ url('transaksi') }}/" + id)
             modal.find('#method').html('@method("PATCH")')
@@ -86,6 +87,7 @@
             modal.find('#metode_pembayaran').val('')
             modal.find('#keterangan').val('')
             modal.find('#pelanggan_id').val('')
+            modal.find('#user_id').val('')
             modal.find('.modal-body form').attr('action', "{{ url('transaksi') }}")
             modal.find('#method').html('')
         }
