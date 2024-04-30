@@ -69,7 +69,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('dashboard', [DashboardController::class, 'index']);
         Route::post('dashboard', [DashboardController::class, 'index']);
         Route::get('laporanTransaksi', [LaporanController::class, 'index']);
-        Route::post('laporanTransaksi', [LaporanController::class, 'filter']);
+        Route::post('laporanTransaksi', [LaporanController::class, 'filter'])->name('filter-laporan');
+        Route::get('cetakpdf/laporan', [LaporanController::class, 'cetakpdf'])->name('cetakpdf-laporan');
 
         Route::resource('jenis', JenisController::class);
         Route::get('export/jenis', [JenisController::class, 'exportData'])->name('export-jenis');
