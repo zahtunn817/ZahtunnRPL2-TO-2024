@@ -15,9 +15,15 @@ class StokImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
+
+        if ($row['jumlah'] == 0) {
+            $row['jumlah'] = 0;
+        } else {
+            $row['jumlah'];
+        }
         return new Stok([
-            'jumlah' => $row['stok'],
-            'menu_id' => $row['menu'],
+            'jumlah' => $row['jumlah'],
+            // 'menu_id' => $row['menu'],
         ]);
     }
 

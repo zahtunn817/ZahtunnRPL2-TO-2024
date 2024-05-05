@@ -70,9 +70,10 @@ class DashboardController extends Controller
         // dd($data);
         $transaksi = Transaksi::whereBetween('tanggal_transaksi', [$tgl_awal, $tgl_akhir])->get();
         $data['pendapatan_all'] = DB::table('transaksi')->sum('total_harga');
+        $data['laba'] = $data['pendapatan_all'] * 0.2;
         $data['latest_transaksi'] = Transaksi::with('pelanggan')->orderBy('tanggal_transaksi', 'desc')->limit(3)->get();
-        $data['count_pelanggan'] = $pelanggan->count();
         $data['pelanggan'] = Pelanggan::limit(10)->orderBy('created_at', 'desc')->get();
+        $data['count_pelanggan'] = $pelanggan->count();
         $data['lowest_stok'] = Stok::with('menu')
             ->join('menu', 'menu.stok_id', '=', 'stok.id')
             ->orderBy('stok.jumlah', 'asc')

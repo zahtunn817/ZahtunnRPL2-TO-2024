@@ -7,18 +7,18 @@
 @section('table')
 <table class="table">
     <thead>
-        <tr class="">
+        <tr>
             <th>No</th>
+            <th>Nama menu</th>
             <th>Stok</th>
-            <th>Menu</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($stok as $item)
         <tr>
             <td>{{ $loop->iteration }}</td>
+            <td>{{ $item->nama_menu }}</td>
             <td>{{ $item->jumlah }}</td>
-            <td>{{ optional($item->menu)->nama_menu }}</td>
         </tr>
         @endforeach
     </tbody>

@@ -10,9 +10,9 @@
         <form action="{{ route('filter-laporan') }}" method="post">
             @csrf
             <div class="form-group row">
-                <input class="mr-3 form-control col-sm-2" type="date" name="tgl_awal" id="tglawal">
+                <input class="mr-3 form-control col-sm-2" value="{{ @$tgl_awal }}" type="date" name="tgl_awal" id="tglawal">
                 <h6 class="mr-3 mt-2"><b>s/d</b></h6>
-                <input class="mr-3 form-control col-sm-2" type="date" name="tgl_akhir" id="tglakhir">
+                <input class="mr-3 form-control col-sm-2" value="{{ @$tgl_akhir }}" type="date" name="tgl_akhir" id="tglakhir">
                 <button type="submit" class="mr-3 btn btn-primary"><i class='fas fa-search'></i></button>
             </div>
         </form>

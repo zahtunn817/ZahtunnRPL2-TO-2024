@@ -96,7 +96,9 @@ class StokController extends Controller
     {
 
 
-        $stok = Stok::all();
+        $stok = DB::table('stok')
+            ->join('menu', 'menu.stok_id', '=', 'stok.id')
+            ->select('stok.*', 'menu.nama_menu',)->orderBy('created_at', 'DESC')->get();
         $date = date('Y-M-d');
         $pdf = PDF::loadView('stok.pdf', compact('stok'));
         return $pdf->download($date . '-stok.pdf');

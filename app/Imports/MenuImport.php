@@ -20,7 +20,8 @@ class MenuImport implements ToModel, WithHeadingRow
             'harga' => $row['harga'],
             'deskripsi' => $row['deskripsi'],
             'jenis_id' => $row['jenis'],
-            'image' => $row['gambar']
+            'image' => $row['gambar'],
+            'stok_id' => $row['stok_id']
         ]);
     }
 
